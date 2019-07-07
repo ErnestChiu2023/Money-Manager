@@ -5,11 +5,15 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 class Income extends Component {
+  handleLog = e => {
+    e.preventDefault();
+    console.log(e.target.value);
+  };
   render() {
     return (
       <div className="Income">
         <Container>
-          <Form>
+          <Form method="POST" onSubmit={this.check}>
             <Form.Row>
               <h3>Record a new source of Income</h3>
             </Form.Row>
@@ -34,10 +38,10 @@ class Income extends Component {
               <Form.Label>Date</Form.Label>
               <Form.Row>
                 <Col>
-                  <Form.Control type="date" />
+                  <Form.Control type="date" onChange={this.handleLog} />
                 </Col>
                 <Col>
-                  <Form.Control type="time" />
+                  <Form.Control type="time" onChange={this.handleLog} />
                 </Col>
               </Form.Row>
             </Form.Group>
