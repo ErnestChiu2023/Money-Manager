@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,10 +9,10 @@ class Income extends Component {
     return (
       <div className="Income">
         <Container>
-          <Row>
-            <h3>Record a new source of Income</h3>
-          </Row>
           <Form>
+            <Form.Row>
+              <h3>Record a new source of Income</h3>
+            </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
               <Form.Control as="select">
