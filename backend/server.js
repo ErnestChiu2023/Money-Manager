@@ -1,19 +1,23 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
+const app = express();
+app.use(cors());
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+const PORT = 80;
+
+app.use(bodyParser.json());
 
 var expense = require("./expense");
 var income = require("./income");
-
-app.use(bodyParser.json());
-app.use("/expense", expense);
-app.use("/income", income);
-
 let expenseModel = require("./models/expenses");
 let incomeModel = require("./models/incomes");
 
-mongoose.connect("mongodb://localhost/moneyManager");
+app.use("/expense", expense);
+app.use("/income", income);
+
+mongoose.connect("mongodb://localhost/moneyManager", { useNewUrlParser: true });
 mongoose.connection
   .once("open", function() {
     console.log("successfully connected to the database");
@@ -22,7 +26,7 @@ mongoose.connection
     console.log("Connectin error:", error);
   });
 
-app.get("/records", function(req, res) {
+app.get("/records", cors(), function(req, res) {
   let count = 0;
   var Records = {
     expenses: null,
@@ -43,6 +47,6 @@ app.get("/records", function(req, res) {
   });
 });
 
-app.listen(4000, function() {
+app.listen(PORT, function() {
   console.log("Now listening on port 4000");
 });
