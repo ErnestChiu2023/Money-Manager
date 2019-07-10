@@ -13,11 +13,11 @@ function App() {
     <div className="App">
       <Router>
         <Navbar expand="lg" variant="dark" bg="dark" sticky="top">
-          <LinkContainer to="/dashboard">
+          <LinkContainer to="/">
             <Navbar.Brand>Money Manager</Navbar.Brand>
           </LinkContainer>
           <Nav className="mr-auto">
-            <LinkContainer to="/dashboard">
+            <LinkContainer to="/">
               <Nav.Link bg="dark">Dashboard</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/income">
@@ -29,7 +29,7 @@ function App() {
           </Nav>
         </Navbar>
 
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/" exact component={Dashboard} />
         <Route path="/income" component={Income} />
         <Route path="/Spending" component={Spending} />
       </Router>
