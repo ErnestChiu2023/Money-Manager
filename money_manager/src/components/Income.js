@@ -1,18 +1,25 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
+import "../css/income.css";
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, "0");
+var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+var yyyy = today.getFullYear();
+
+today = yyyy + "-" + mm + "-" + dd;
 
 class Income extends Component {
   constructor(props) {
     super(props);
+    this.notificationDOMRef = React.createRef();
     this.state = {
       catagory: "Salary",
       amount: "",
-      date: "",
-      time: ""
+      date: today
     };
   }
 
@@ -34,22 +41,18 @@ class Income extends Component {
     });
   };
 
-  handleTime = e => {
-    this.setState({
-      time: e.target.value
-    });
-  };
-
   handleLog = e => {
     e.preventDefault();
 
     Axios.post("http://localhost:80/income/", {
       catagory: this.state.catagory,
       amount: this.state.amount,
-      date: this.state.date,
-      time: this.state.time
+      date: this.state.date
     }).then(response => {
       console.log(response);
+      if (response.status === 200) {
+        this.props.notification();
+      }
     });
   };
 
@@ -76,18 +79,20 @@ class Income extends Component {
             <br />
             <Form.Group>
               <Form.Label>Amount</Form.Label>
-              <Form.Control type="number" onChange={this.handleAmount} />
+              <Form.Control
+                type="number"
+                step="0.01"
+                onChange={this.handleAmount}
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Date</Form.Label>
-              <Form.Row>
-                <Col>
-                  <Form.Control type="date" onChange={this.handleDate} />
-                </Col>
-                <Col>
-                  <Form.Control type="time" onChange={this.handleTime} />
-                </Col>
-              </Form.Row>
+              <Form.Control
+                id="#date"
+                type="date"
+                value={this.state.date}
+                onChange={this.handleDate}
+              />
             </Form.Group>
             <Button type="submit">Add Income</Button>
           </Form>
