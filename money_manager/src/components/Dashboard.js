@@ -33,11 +33,11 @@ class Dashboard extends Component {
   displayExpenses = () => {
     return this.state.expenses.map(expense => {
       return (
-        <tbody>
+        <tbody key={expense._id}>
           <tr>
             <td>{expense.catagory}</td>
             <td>{expense.amount}</td>
-            <td>{expense.date}</td>
+            <td>{expense.date.substring(0, 10)}</td>
           </tr>
         </tbody>
       );
@@ -47,11 +47,11 @@ class Dashboard extends Component {
   displayIncomes = () => {
     return this.state.incomes.map(income => {
       return (
-        <tbody>
+        <tbody key={income._id}>
           <tr>
             <td>{income.catagory}</td>
             <td>{income.amount}</td>
-            <td>{income.date}</td>
+            <td>{income.date.substring(0, 10)}</td>
           </tr>
         </tbody>
       );
