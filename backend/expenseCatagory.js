@@ -10,4 +10,10 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
+router.get("/", function(req, res) {
+  ECatagory.find({}).then(function(data) {
+    res.json(data);
+  });
+});
+
 module.exports = router;

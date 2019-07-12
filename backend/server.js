@@ -30,7 +30,7 @@ mongoose.connection
     console.log("Connectin error:", error);
   });
 
-app.get("/records", cors(), function(req, res) {
+app.get("/records", function(req, res) {
   let count = 0;
   var Records = {
     expenses: null,

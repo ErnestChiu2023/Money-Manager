@@ -19,7 +19,8 @@ class Income extends Component {
     this.state = {
       catagory: "Salary",
       amount: "",
-      date: today
+      date: today,
+      catagories: []
     };
   }
 
