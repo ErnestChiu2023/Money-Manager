@@ -11,11 +11,15 @@ app.use(bodyParser.json());
 
 var expense = require("./expense");
 var income = require("./income");
+var IncomeCatagory = require("./IncomeCatagory");
+var expenseCatagory = require("./expenseCatagory");
 let expenseModel = require("./models/expenses");
 let incomeModel = require("./models/incomes");
 
 app.use("/expense", expense);
 app.use("/income", income);
+app.use("/incomeCatagory", IncomeCatagory);
+app.use("/expenseCatagory", expenseCatagory);
 
 mongoose.connect("mongodb://localhost/moneyManager", { useNewUrlParser: true });
 mongoose.connection
@@ -26,7 +30,7 @@ mongoose.connection
     console.log("Connectin error:", error);
   });
 
-app.get("/records", cors(), function(req, res) {
+app.get("/records", function(req, res) {
   let count = 0;
   var Records = {
     expenses: null,
