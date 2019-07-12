@@ -58,7 +58,10 @@ class App extends Component {
             path="/income"
             render={() => <Income notification={this.addNotification} />}
           />
-          <Route path="/Spending" component={Spending} />
+          <Route
+            path="/spending"
+            render={() => <Spending notification={this.addNotification} />}
+          />
         </Router>
       </div>
     );
