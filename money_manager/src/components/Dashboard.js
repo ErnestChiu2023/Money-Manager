@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 const axios = require("axios");
 
@@ -38,6 +39,9 @@ class Dashboard extends Component {
             <td>{expense.catagory}</td>
             <td>{expense.amount}</td>
             <td>{expense.date.substring(0, 10)}</td>
+            <td>
+              <Link to={`income/edit/${expense._id}`}>edit</Link>
+            </td>
           </tr>
         </tbody>
       );
