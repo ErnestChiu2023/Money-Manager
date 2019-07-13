@@ -10,6 +10,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
+import Edit from "./components/Edit";
 
 class App extends Component {
   constructor(props) {
@@ -56,11 +57,19 @@ class App extends Component {
           <Route path="/" exact component={Dashboard} />
           <Route
             path="/income"
+            exact
             render={() => <Income notification={this.addNotification} />}
           />
           <Route
             path="/spending"
+            exact
             render={() => <Spending notification={this.addNotification} />}
+          />
+          <Route
+            path="/income/edit/:id"
+            render={props => (
+              <Edit notification={this.addNotification} {...props} />
+            )}
           />
         </Router>
       </div>
