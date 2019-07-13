@@ -48,7 +48,7 @@ class Income extends Component {
 
   handleAmount = e => {
     this.setState({
-      amount: parseInt(e.target.value)
+      amount: parseFloat(e.target.value)
     });
   };
 
