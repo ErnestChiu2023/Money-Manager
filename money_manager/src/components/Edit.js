@@ -10,7 +10,7 @@ class Edit extends Component {
     super(props);
     this.notificationDOMRef = React.createRef();
     this.state = {
-      catagory: "Gas",
+      catagory: "",
       amount: "",
       date: "",
       catagories: []
