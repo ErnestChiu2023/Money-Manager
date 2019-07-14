@@ -14,7 +14,7 @@ router.post("/", function(req, res) {
 
 router.get("/", function(req, res) {
   expense.find({ _id: req.query.id }).then(function(data) {
-    res.json(data);
+    res.json(data[0]);
   });
 });
 

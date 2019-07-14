@@ -17,6 +17,20 @@ class Edit extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log(this.props.match.params.id);
+    Axios.get(
+      "http://localhost:80/expense/?id=" + this.props.match.params.id
+    ).then(res => {
+      console.log(res.data);
+      this.setState({
+        catagory: res.data.catagory,
+        amount: res.data.amont,
+        date: res.data.date
+      });
+    });
+  }
+
   listCatagories = () => {
     return this.state.catagories.map(catagory => {
       return <option key={catagory._id}>{catagory.catagory}</option>;
@@ -55,11 +69,7 @@ class Edit extends Component {
             </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={this.handleCatagory}
-                value={this.state.catagory}
-              >
+              <Form.Control as="select" onChange={this.handleCatagory}>
                 <this.listCatagories />
               </Form.Control>
             </Form.Group>
@@ -68,7 +78,6 @@ class Edit extends Component {
               <Form.Control
                 type="number"
                 step="0.01"
-                value={this.state.amount}
                 onChange={this.handleAmount}
               />
             </Form.Group>
@@ -77,8 +86,8 @@ class Edit extends Component {
               <Form.Control
                 id="#date"
                 type="date"
-                value={this.state.date}
                 onChange={this.handleDate}
+                value={this.state.date}
               />
             </Form.Group>
             <Button type="submit">Edit Record</Button>
