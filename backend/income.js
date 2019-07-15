@@ -19,4 +19,20 @@ router.get("/", function(req, res) {
   });
 });
 
+router.post("/edit/", function(req, res) {
+  income
+    .updateOne(
+      { _id: req.query.id },
+      {
+        $set: {
+          catagory: req.body.catagory,
+          amount: req.body.amount,
+          date: req.body.date
+        }
+      }
+    )
+    .then(console.log("upated"));
+  res.send("updated");
+});
+
 module.exports = router;
