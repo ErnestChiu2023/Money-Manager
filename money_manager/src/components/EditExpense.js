@@ -78,6 +78,18 @@ class EditExpense extends Component {
     });
   };
 
+  handleDelete = e => {
+    console.log("delete fired");
+    Axios.delete(
+      "http://localhost:80/expense/?id=" + this.props.match.params.id
+    ).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        this.props.history.push("/");
+      }
+    });
+  };
+
   render() {
     return (
       <div className="Edit">
@@ -115,6 +127,9 @@ class EditExpense extends Component {
               />
             </Form.Group>
             <Button type="submit">Edit Record</Button>
+            <Button variant="danger" onClick={this.handleDelete}>
+              Delete Record
+            </Button>
           </Form>
         </Container>
       </div>

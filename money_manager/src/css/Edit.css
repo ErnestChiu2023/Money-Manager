@@ -2,3 +2,7 @@
   position: relative;
   top: 5vh;
 }
+
+button {
+  margin-right: 1vw;
+}
