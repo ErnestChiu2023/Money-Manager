@@ -40,7 +40,7 @@ class Dashboard extends Component {
             <td>{expense.amount}</td>
             <td>{expense.date.substring(0, 10)}</td>
             <td>
-              <Link to={`income/edit/${expense._id}`}>edit</Link>
+              <Link to={`expense/edit/${expense._id}`}>edit</Link>
             </td>
           </tr>
         </tbody>
@@ -56,6 +56,9 @@ class Dashboard extends Component {
             <td>{income.catagory}</td>
             <td>{income.amount}</td>
             <td>{income.date.substring(0, 10)}</td>
+            <td>
+              <Link to={`income/edit/${income._id}`}>edit</Link>
+            </td>
           </tr>
         </tbody>
       );

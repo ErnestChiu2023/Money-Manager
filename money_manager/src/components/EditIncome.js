@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import "../css/Edit.css";
 
-class Edit extends Component {
+class EditIncome extends Component {
   constructor(props) {
     super(props);
     this.notificationDOMRef = React.createRef();
@@ -20,7 +20,7 @@ class Edit extends Component {
   componentDidMount() {
     console.log(this.props.match.params.id);
     Axios.get(
-      "http://localhost:80/expense/?id=" + this.props.match.params.id
+      "http://localhost:80/income/?id=" + this.props.match.params.id
     ).then(res => {
       console.log(res.data);
       this.setState({
@@ -29,7 +29,7 @@ class Edit extends Component {
         date: res.data.date
       });
     });
-    Axios.get("http://localhost:80/expenseCatagory/").then(res => {
+    Axios.get("http://localhost:80/incomeCatagory/").then(res => {
       this.setState({
         catagories: res.data
       });
@@ -63,6 +63,19 @@ class Edit extends Component {
 
   handleLog = e => {
     e.preventDefault();
+    Axios.post(
+      "http://localhost:80/income/edit/?id=" + this.props.match.params.id,
+      {
+        catagory: this.state.catagory,
+        amount: this.state.amount,
+        date: this.state.date
+      }
+    ).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        this.props.notification();
+      }
+    });
   };
 
   render() {
@@ -89,7 +102,7 @@ class Edit extends Component {
                 type="number"
                 step="0.01"
                 onChange={this.handleAmount}
-                value={this.state.amount || 0}
+                value={this.state.amount}
               />
             </Form.Group>
             <Form.Group>
@@ -109,4 +122,4 @@ class Edit extends Component {
   }
 }
 
-export default Edit;
+export default EditIncome;
