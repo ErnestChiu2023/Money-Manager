@@ -11,7 +11,7 @@ class Edit extends Component {
     this.notificationDOMRef = React.createRef();
     this.state = {
       catagory: "",
-      amount: "",
+      amount: 0,
       date: "",
       catagories: []
     };
@@ -25,9 +25,15 @@ class Edit extends Component {
       console.log(res.data);
       this.setState({
         catagory: res.data.catagory,
-        amount: res.data.amont,
+        amount: res.data.amount,
         date: res.data.date
       });
+    });
+    Axios.get("http://localhost:80/expenseCatagory/").then(res => {
+      this.setState({
+        catagories: res.data
+      });
+      console.log(this.state.catagories);
     });
   }
 
@@ -69,7 +75,11 @@ class Edit extends Component {
             </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
-              <Form.Control as="select" onChange={this.handleCatagory}>
+              <Form.Control
+                as="select"
+                onChange={this.handleCatagory}
+                value={this.state.catagory}
+              >
                 <this.listCatagories />
               </Form.Control>
             </Form.Group>
@@ -79,6 +89,7 @@ class Edit extends Component {
                 type="number"
                 step="0.01"
                 onChange={this.handleAmount}
+                value={this.state.amount || 0}
               />
             </Form.Group>
             <Form.Group>
@@ -87,7 +98,7 @@ class Edit extends Component {
                 id="#date"
                 type="date"
                 onChange={this.handleDate}
-                value={this.state.date}
+                value={this.state.date.substring(0, 10)}
               />
             </Form.Group>
             <Button type="submit">Edit Record</Button>
