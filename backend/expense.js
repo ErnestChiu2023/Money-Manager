@@ -34,4 +34,20 @@ router.post("/edit/", function(req, res) {
   res.send("updated");
 });
 
+router.delete("/", function(req, res) {
+  expense.deleteOne(
+    {
+      _id: req.query.id
+    },
+    function(err) {
+      if (err) {
+        console.log("error");
+      } else {
+        console.log("deleted");
+      }
+    }
+  );
+  res.send("deleted");
+});
+
 module.exports = router;
