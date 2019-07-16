@@ -12,6 +12,8 @@ import "react-notifications-component/dist/theme.css";
 import "animate.css";
 import EditExpense from "./components/EditExpense";
 import EditIncome from "./components/EditIncome";
+import IncomeDisplay from "./components/IncomeDisplay";
+import ExpenseDisplay from "./components/ExpenseDisplay";
 
 class App extends Component {
   constructor(props) {
@@ -39,12 +41,18 @@ class App extends Component {
       <div className="App">
         <Router>
           <Navbar expand="lg" variant="dark" bg="dark" sticky="top">
-            <LinkContainer to="/">
+            <LinkContainer to="/dashboard">
               <Navbar.Brand>Money Manager</Navbar.Brand>
             </LinkContainer>
             <Nav className="mr-auto">
-              <LinkContainer to="/">
+              <LinkContainer to="/dashboard">
                 <Nav.Link bg="dark">Dashboard</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/incomeDisplay">
+                <Nav.Link bg="dark">Income</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/expenseDisplay">
+                <Nav.Link bg="dark">Expenses</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/income">
                 <Nav.Link bg="dark">Add Income</Nav.Link>
@@ -55,7 +63,9 @@ class App extends Component {
             </Nav>
           </Navbar>
           <ReactNotification ref={this.notificationDOMRef} />
-          <Route path="/" exact component={Dashboard} />
+          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/incomeDisplay" component={IncomeDisplay} />
+          <Route path="/expenseDisplay" component={ExpenseDisplay} />
           <Route
             path="/income"
             exact
