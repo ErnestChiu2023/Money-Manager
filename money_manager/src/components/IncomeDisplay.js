@@ -51,6 +51,7 @@ class IncomeDisplay extends Component {
               <th>Catagory</th>
               <th>Cost</th>
               <th>Date</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <this.displayIncomes />
