@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Income from "./components/Income";
-import Spending from "./components/Spending";
+import Expense from "./components/Expense";
 import { LinkContainer } from "react-router-bootstrap";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
@@ -58,7 +58,7 @@ class App extends Component {
                 <Nav.Link bg="dark">Add Income</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/spending">
-                <Nav.Link bg="dark">Add Spending</Nav.Link>
+                <Nav.Link bg="dark">Add Expense</Nav.Link>
               </LinkContainer>
             </Nav>
           </Navbar>
@@ -69,12 +69,16 @@ class App extends Component {
           <Route
             path="/income"
             exact
-            render={() => <Income notification={this.addNotification} />}
+            render={props => (
+              <Income notification={this.addNotification} {...props} />
+            )}
           />
           <Route
             path="/spending"
             exact
-            render={() => <Spending notification={this.addNotification} />}
+            render={props => (
+              <Expense notification={this.addNotification} {...props} />
+            )}
           />
           <Route
             path="/expense/edit/:id"

@@ -74,6 +74,7 @@ class EditIncome extends Component {
       console.log(response);
       if (response.status === 200) {
         this.props.notification();
+        this.props.history.push("/incomeDisplay");
       }
     });
   };
@@ -85,7 +86,7 @@ class EditIncome extends Component {
     ).then(response => {
       console.log(response);
       if (response.status === 200) {
-        this.props.history.push("/");
+        this.props.history.push("/incomeDisplay");
       }
     });
   };

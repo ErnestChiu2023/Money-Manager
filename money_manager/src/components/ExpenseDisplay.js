@@ -45,7 +45,7 @@ class ExpenseDisplay extends Component {
   render() {
     return (
       <div className="ExpenseDisplay">
-        <Table variant="dark" responsive bordered hover>
+        <Table responsive bordered hover>
           <thead>
             <tr>
               <th>Catagory</th>

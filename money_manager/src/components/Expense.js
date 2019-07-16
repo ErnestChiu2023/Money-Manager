@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-import "../css/spending.css";
+import "../css/expense.css";
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
@@ -69,6 +69,7 @@ class Expense extends Component {
       console.log(response);
       if (response.status === 200) {
         this.props.notification();
+        this.props.history.push("/expenseDisplay");
       }
     });
   };

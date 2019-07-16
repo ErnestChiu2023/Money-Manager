@@ -45,7 +45,7 @@ class IncomeDisplay extends Component {
   render() {
     return (
       <div className="IncomeDisplay">
-        <Table variant="dark" responsive bordered hover>
+        <Table responsive bordered hover>
           <thead>
             <tr>
               <th>Catagory</th>
