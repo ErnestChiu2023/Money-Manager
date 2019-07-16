@@ -34,7 +34,7 @@ class IncomeDisplay extends Component {
             <td>{income.amount}</td>
             <td>{income.date.substring(0, 10)}</td>
             <td>
-              <Link to={`income/edit/${income._id}`}>edit</Link>
+              <Link to={`editIncome/${income._id}`}>edit</Link>
             </td>
           </tr>
         </tbody>

@@ -34,7 +34,7 @@ class ExpenseDisplay extends Component {
             <td>{expense.amount}</td>
             <td>{expense.date.substring(0, 10)}</td>
             <td>
-              <Link to={`expense/edit/${expense._id}`}>edit</Link>
+              <Link to={`editExpense/${expense._id}`}>edit</Link>
             </td>
           </tr>
         </tbody>

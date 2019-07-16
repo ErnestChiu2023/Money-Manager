@@ -81,13 +81,13 @@ class App extends Component {
             )}
           />
           <Route
-            path="/expense/edit/:id"
+            path="/editExpense/:id"
             render={props => (
               <EditExpense notification={this.addNotification} {...props} />
             )}
           />
           <Route
-            path="/income/edit/:id"
+            path="/editIncome/:id"
             render={props => (
               <EditIncome notification={this.addNotification} {...props} />
             )}
