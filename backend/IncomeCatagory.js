@@ -16,4 +16,20 @@ router.get("/", function(req, res) {
   });
 });
 
+router.delete("/", function(req, res) {
+  ICatagory.deleteOne(
+    {
+      _id: req.query.id
+    },
+    function(err) {
+      if (err) {
+        console.log("error");
+      } else {
+        console.log("deleted");
+      }
+    }
+  );
+  res.send("deleted");
+});
+
 module.exports = router;

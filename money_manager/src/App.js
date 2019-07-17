@@ -14,6 +14,7 @@ import EditExpense from "./components/EditExpense";
 import EditIncome from "./components/EditIncome";
 import IncomeDisplay from "./components/IncomeDisplay";
 import ExpenseDisplay from "./components/ExpenseDisplay";
+import EditCatagories from "./components/editCatagories";
 
 class App extends Component {
   constructor(props) {
@@ -60,6 +61,9 @@ class App extends Component {
               <LinkContainer to="/spending">
                 <Nav.Link bg="dark">Add Expense</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/editCatagories">
+                <Nav.Link bg="dark">Catagories</Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar>
           <ReactNotification ref={this.notificationDOMRef} />
@@ -92,6 +96,7 @@ class App extends Component {
               <EditIncome notification={this.addNotification} {...props} />
             )}
           />
+          <Route path="/editCatagories" component={EditCatagories} />
         </Router>
       </div>
     );
