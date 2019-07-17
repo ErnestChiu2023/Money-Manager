@@ -9,6 +9,7 @@ import "../css/EditCatagories.css";
 class EditCatagories extends Component {
   constructor(props) {
     super(props);
+    this.notificationDOMRef = React.createRef();
     this.state = {
       expenses: [],
       incomes: []
@@ -75,6 +76,7 @@ class EditCatagories extends Component {
       Axios.delete("http://localhost:80/incomeCatagory/?id=" + id).then(
         response => {
           console.log(response);
+          this.props.deleteCatagory();
           Axios.get("http://localhost:80/incomeCatagory/").then(res => {
             this.setState({
               incomes: res.data
@@ -87,6 +89,7 @@ class EditCatagories extends Component {
       Axios.delete("http://localhost:80/expenseCatagory/?id=" + id).then(
         response => {
           console.log(response);
+          this.props.deleteCatagory();
           Axios.get("http://localhost:80/expenseCatagory/").then(res => {
             this.setState({
               expenses: res.data

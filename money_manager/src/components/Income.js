@@ -68,7 +68,7 @@ class Income extends Component {
     }).then(response => {
       console.log(response);
       if (response.status === 200) {
-        this.props.notification();
+        this.props.SuccessNotification();
         this.props.history.push("/incomeDisplay");
       }
     });
@@ -85,8 +85,13 @@ class Income extends Component {
     Axios.post("http://localhost:80/incomeCatagory/", {
       catagory: this.state.newCatagory
     }).then(response => {
-      console.log(response.status);
-      window.location.reload();
+      this.props.SuccessCatagoryNotification();
+      Axios.get("http://localhost:80/incomeCatagory/").then(res => {
+        this.setState({
+          catagories: res.data
+        });
+        console.log(this.state.catagories);
+      });
     });
   };
 

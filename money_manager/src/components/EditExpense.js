@@ -73,7 +73,7 @@ class EditExpense extends Component {
     ).then(response => {
       console.log(response);
       if (response.status === 200) {
-        this.props.notification();
+        this.props.editNotification();
         this.props.history.push("/expenseDisplay");
       }
     });
@@ -86,6 +86,7 @@ class EditExpense extends Component {
     ).then(response => {
       console.log(response);
       if (response.status === 200) {
+        this.props.deleteRecordNotification();
         this.props.history.push("/expenseDisplay");
       }
     });

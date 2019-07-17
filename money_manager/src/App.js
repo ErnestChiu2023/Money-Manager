@@ -19,14 +19,78 @@ import EditCatagories from "./components/editCatagories";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.addNotification = this.addNotification.bind(this);
+    this.SuccessNotification = this.SuccessNotification.bind(this);
+    this.SuccessCatagoryNotification = this.SuccessCatagoryNotification.bind(
+      this
+    );
+    this.deleteCatagoryNotification = this.deleteCatagoryNotification.bind(
+      this
+    );
+    this.deleteRecordNotification = this.deleteRecordNotification.bind(this);
+    this.editRecordNotification = this.editRecordNotification.bind(this);
     this.notificationDOMRef = React.createRef();
   }
 
-  addNotification() {
+  SuccessNotification() {
     this.notificationDOMRef.current.addNotification({
       title: "Success",
       message: "Your record has been saved!",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated ", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
+    });
+  }
+
+  SuccessCatagoryNotification() {
+    this.notificationDOMRef.current.addNotification({
+      title: "Success",
+      message: "Your catagory has been saved!",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated ", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
+    });
+  }
+
+  deleteCatagoryNotification() {
+    this.notificationDOMRef.current.addNotification({
+      title: "Deleted",
+      message: "Your catagory has been deleted!",
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated ", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
+    });
+  }
+
+  deleteRecordNotification() {
+    this.notificationDOMRef.current.addNotification({
+      title: "Deleted",
+      message: "Your record has been deleted!",
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated ", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
+    });
+  }
+
+  editRecordNotification() {
+    this.notificationDOMRef.current.addNotification({
+      title: "Success",
+      message: "Your record has been edited!",
       type: "success",
       insert: "top",
       container: "top-right",
@@ -58,7 +122,7 @@ class App extends Component {
               <LinkContainer to="/income">
                 <Nav.Link bg="dark">Add Income</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/spending">
+              <LinkContainer to="/expense">
                 <Nav.Link bg="dark">Add Expense</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/editCatagories">
@@ -74,29 +138,52 @@ class App extends Component {
             path="/income"
             exact
             render={props => (
-              <Income notification={this.addNotification} {...props} />
+              <Income
+                SuccessNotification={this.SuccessNotification}
+                SuccessCatagoryNotification={this.SuccessCatagoryNotification}
+                {...props}
+              />
             )}
           />
           <Route
-            path="/spending"
+            path="/expense"
             exact
             render={props => (
-              <Expense notification={this.addNotification} {...props} />
+              <Expense
+                SuccessNotification={this.SuccessNotification}
+                SuccessCatagoryNotification={this.SuccessCatagoryNotification}
+                {...props}
+              />
             )}
           />
           <Route
             path="/editExpense/:id"
             render={props => (
-              <EditExpense notification={this.addNotification} {...props} />
+              <EditExpense
+                editNotification={this.editRecordNotification}
+                deleteRecordNotification={this.deleteRecordNotification}
+                {...props}
+              />
             )}
           />
           <Route
             path="/editIncome/:id"
             render={props => (
-              <EditIncome notification={this.addNotification} {...props} />
+              <EditIncome
+                editNotification={this.editRecordNotification}
+                deleteRecordNotification={this.deleteRecordNotification}
+                {...props}
+              />
             )}
           />
-          <Route path="/editCatagories" component={EditCatagories} />
+          <Route
+            path="/editCatagories"
+            render={props => (
+              <EditCatagories
+                deleteCatagory={this.deleteCatagoryNotification}
+              />
+            )}
+          />
         </Router>
       </div>
     );

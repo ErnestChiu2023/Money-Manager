@@ -85,8 +85,13 @@ class Expense extends Component {
     Axios.post("http://localhost:80/expenseCatagory/", {
       catagory: this.state.newCatagory
     }).then(response => {
-      console.log(response.status);
-      window.location.reload();
+      this.props.SuccessCatagoryNotification();
+      Axios.get("http://localhost:80/expenseCatagory/").then(res => {
+        this.setState({
+          catagories: res.data
+        });
+        console.log(this.state.catagories);
+      });
     });
   };
 
