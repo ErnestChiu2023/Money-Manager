@@ -68,7 +68,7 @@ class Expense extends Component {
     }).then(response => {
       console.log(response);
       if (response.status === 200) {
-        this.props.notification();
+        this.props.SuccessNotification();
         this.props.history.push("/expenseDisplay");
       }
     });
