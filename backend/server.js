@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 var expense = require("./expense");
 var income = require("./income");
+var dashboard = require("./dashboard");
 var IncomeCatagory = require("./IncomeCatagory");
 var expenseCatagory = require("./expenseCatagory");
 let expenseModel = require("./models/expenses");
@@ -20,6 +21,7 @@ app.use("/expense", expense);
 app.use("/income", income);
 app.use("/incomeCatagory", IncomeCatagory);
 app.use("/expenseCatagory", expenseCatagory);
+app.use("/dashboard", dashboard);
 
 mongoose.connect("mongodb://localhost/moneyManager", { useNewUrlParser: true });
 mongoose.connection

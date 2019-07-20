@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const expense = require("./models/expenses");
+var expense = require("./models/expenses");
 
 router.post("/", function(req, res) {
   var transaction = new expense({
