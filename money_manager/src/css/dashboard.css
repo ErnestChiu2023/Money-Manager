@@ -1,0 +1,13 @@
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.title {
+  margin: 1vh 17vw;
+}
+
+.stat {
+  font-size: 40px;
+}

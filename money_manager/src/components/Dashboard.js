@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import Table from "react-bootstrap/Table";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import "../css/dashboard.css";
 const Axios = require("axios");
 
 class Dashboard extends Component {
@@ -32,7 +30,46 @@ class Dashboard extends Component {
   }
 
   render() {
-    return <div className="Dashboard">Overview</div>;
+    return (
+      <div className="Dashboard">
+        <h2 className="title">Monthly Status Report</h2>
+        <div className="flex-container">
+          <Card
+            style={{ width: "25rem", margin: "1%" }}
+            className="text-center"
+          >
+            <Card.Body>
+              <Card.Title>Total Income</Card.Title>
+              <Card.Text className="stat">
+                {this.state.incomes_sum.toFixed(2)}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card
+            style={{ width: "25rem", margin: "1%" }}
+            className="text-center"
+          >
+            <Card.Body>
+              <Card.Title>Total Expenses</Card.Title>
+              <Card.Text className="stat">
+                {this.state.expense_sum.toFixed(2)}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card
+            style={{ width: "25rem", margin: "1%" }}
+            className="text-center"
+          >
+            <Card.Body>
+              <Card.Title>Total Balance</Card.Title>
+              <Card.Text className="stat">
+                {this.state.balance.toFixed(2)}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+    );
   }
 }
 
