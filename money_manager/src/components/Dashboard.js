@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import "../css/dashboard.css";
+import Chart from "react-apexcharts";
 const Axios = require("axios");
 
 class Dashboard extends Component {
@@ -11,9 +12,85 @@ class Dashboard extends Component {
       incomes_sum: 0,
       balance: 0,
       catagory_expenses: [],
-      time_expenses: []
+      time_expenses: [],
+      catagoryChart: {
+        options: {
+          title: {
+            text: "Expenses by Catagory",
+            align: "center",
+            style: {
+              fontSize: "25px",
+              color: "#263238"
+            }
+          },
+          labels: ["gas", "books"]
+        },
+        series: [44, 32]
+      },
+      timeChart: {
+        options: {
+          title: {
+            text: "Expenses by Day of Month",
+            align: "center",
+            style: {
+              fontSize: "25px",
+              color: "#263238"
+            }
+          },
+          chart: {
+            id: "timeChart"
+          }
+        },
+        plotOptions: {
+          line: {
+            curve: "smooth"
+          }
+        },
+        series: [
+          {
+            name: "Expenses",
+            data: []
+          }
+        ]
+      }
     };
   }
+
+  updateLineChart = e => {
+    let data = [];
+    this.state.time_expenses.map(s => {
+      data.push({ x: s._id, y: s.total });
+    });
+    this.setState({
+      timeChart: {
+        options: {
+          title: {
+            text: "Expenses by Day of Month",
+            align: "center",
+            style: {
+              fontSize: "25px",
+              color: "#263238"
+            }
+          },
+          chart: {
+            id: "timeChart"
+          }
+        },
+        plotOptions: {
+          line: {
+            curve: "smooth"
+          }
+        },
+        series: [
+          {
+            data,
+            name: "Expenses"
+          }
+        ]
+      }
+    });
+    console.log(this.state);
+  };
 
   componentDidMount() {
     Axios.get("http://localhost:80/dashboard/").then(res => {
@@ -26,6 +103,7 @@ class Dashboard extends Component {
         time_expenses: res.data.time_expenses
       });
       console.log(this.state);
+      this.updateLineChart();
     });
   }
 
@@ -67,6 +145,24 @@ class Dashboard extends Component {
               </Card.Text>
             </Card.Body>
           </Card>
+        </div>
+        <div className="flex-container">
+          <div className="donut">
+            <Chart
+              options={this.state.catagoryChart.options}
+              series={this.state.catagoryChart.series}
+              type="donut"
+              width="600"
+            />
+          </div>
+          <div className="time-chart">
+            <Chart
+              options={this.state.timeChart.options}
+              series={this.state.timeChart.series}
+              type="scatter"
+              width="700"
+            />
+          </div>
         </div>
       </div>
     );
