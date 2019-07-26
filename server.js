@@ -60,9 +60,7 @@ app.get("/records", function(req, res) {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("../money_manager/build"));
   app.get("*", (req, res) => {
-    res.sendFile(
-      path.join(__dirname, "../", "money_manager", "build", "index.html")
-    ); //relative path
+    res.sendFile(path.join(__dirname, "money_manager", "build", "index.html")); //relative path
   });
 }
 
