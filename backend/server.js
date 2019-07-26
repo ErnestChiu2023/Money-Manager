@@ -4,8 +4,9 @@ const app = express();
 app.use(cors());
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require("path");
 
-const PORT = 80;
+const PORT = process.env.PORT || 80;
 
 app.use(bodyParser.json());
 
@@ -23,7 +24,10 @@ app.use("/incomeCatagory", IncomeCatagory);
 app.use("/expenseCatagory", expenseCatagory);
 app.use("/dashboard", dashboard);
 
-mongoose.connect("mongodb://localhost/moneyManager", { useNewUrlParser: true });
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/moneyManager",
+  { useNewUrlParser: true }
+);
 mongoose.connection
   .once("open", function() {
     console.log("successfully connected to the database");
@@ -53,6 +57,15 @@ app.get("/records", function(req, res) {
   });
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../money_manager/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.join(__dirname, "../", "money_manager", "build", "index.html")
+    ); //relative path
+  });
+}
+
 app.listen(PORT, function() {
-  console.log("Now listening on port 4000");
+  console.log("Now listening to a port");
 });
