@@ -9,7 +9,6 @@ import Expense from "./components/Expense";
 import { LinkContainer } from "react-router-bootstrap";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
-import "animate.css";
 import EditExpense from "./components/EditExpense";
 import EditIncome from "./components/EditIncome";
 import IncomeDisplay from "./components/IncomeDisplay";
