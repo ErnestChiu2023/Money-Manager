@@ -9,11 +9,13 @@ class IncomeDisplay extends Component {
     this.state = {
       incomes: []
     };
-    axios.get("https://ernest-money-manager.herokuapp.com/api//").then(res => {
-      this.setState({
-        incomes: res.data.incomes
+    axios
+      .get("https://ernest-money-manager.herokuapp.com/api/records/")
+      .then(res => {
+        this.setState({
+          incomes: res.data.incomes
+        });
       });
-    });
   }
 
   componentDidMount() {
