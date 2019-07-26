@@ -18,11 +18,11 @@ var expenseCatagory = require("./expenseCatagory");
 let expenseModel = require("./models/expenses");
 let incomeModel = require("./models/incomes");
 
-app.use("api/expense", expense);
-app.use("api/income", income);
-app.use("api/incomeCatagory", IncomeCatagory);
-app.use("api/expenseCatagory", expenseCatagory);
-app.use("api/dashboard", dashboard);
+app.use("/api/expense", expense);
+app.use("/api/income", income);
+app.use("/api/incomeCatagory", IncomeCatagory);
+app.use("/api/expenseCatagory", expenseCatagory);
+app.use("/api/dashboard", dashboard);
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/moneyManager",
@@ -36,7 +36,7 @@ mongoose.connection
     console.log("Connectin error:", error);
   });
 
-app.get("api/records", function(req, res) {
+app.get("/api/records", function(req, res) {
   let count = 0;
   var Records = {
     expenses: null,
