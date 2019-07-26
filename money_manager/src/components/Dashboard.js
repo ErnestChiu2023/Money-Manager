@@ -23,9 +23,9 @@ class Dashboard extends Component {
               color: "#263238"
             }
           },
-          labels: ["gas", "books"]
+          labels: []
         },
-        series: [44, 32]
+        series: []
       },
       timeChart: {
         options: {
@@ -92,6 +92,32 @@ class Dashboard extends Component {
     console.log(this.state);
   };
 
+  updatePieChart = e => {
+    let data = [];
+    let labels = [];
+    this.state.catagory_expenses.map(s => {
+      data.push(s.total);
+      labels.push(s._id);
+    });
+    this.setState({
+      catagoryChart: {
+        options: {
+          title: {
+            text: "Expenses by Catagory",
+            align: "center",
+            style: {
+              fontSize: "25px",
+              color: "#263238"
+            }
+          },
+          labels: labels
+        },
+        series: data
+      }
+    });
+    console.log(this.state);
+  };
+
   componentDidMount() {
     Axios.get("http://localhost:80/dashboard/").then(res => {
       console.log(res.data);
@@ -104,6 +130,7 @@ class Dashboard extends Component {
       });
       console.log(this.state);
       this.updateLineChart();
+      this.updatePieChart();
     });
   }
 
