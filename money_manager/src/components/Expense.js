@@ -26,7 +26,9 @@ class Expense extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:80/expenseCatagory/").then(res => {
+    Axios.get(
+      "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/"
+    ).then(res => {
       this.setState({
         catagories: res.data
       });
@@ -61,7 +63,7 @@ class Expense extends Component {
   handleLog = e => {
     e.preventDefault();
 
-    Axios.post("http://localhost:80/expense/", {
+    Axios.post("https://ernest-money-manager.herokuapp.com/api/expense/", {
       catagory: this.state.catagory,
       amount: this.state.amount,
       date: this.state.date
@@ -82,11 +84,16 @@ class Expense extends Component {
   };
 
   newCatagory = e => {
-    Axios.post("http://localhost:80/expenseCatagory/", {
-      catagory: this.state.newCatagory
-    }).then(response => {
+    Axios.post(
+      "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/",
+      {
+        catagory: this.state.newCatagory
+      }
+    ).then(response => {
       this.props.SuccessCatagoryNotification();
-      Axios.get("http://localhost:80/expenseCatagory/").then(res => {
+      Axios.get(
+        "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/"
+      ).then(res => {
         this.setState({
           catagories: res.data
         });

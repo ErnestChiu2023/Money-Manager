@@ -17,13 +17,17 @@ class EditCatagories extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:80/expenseCatagory/").then(res => {
+    Axios.get(
+      "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/"
+    ).then(res => {
       this.setState({
         expenses: res.data
       });
       console.log(this.state.expenses);
     });
-    Axios.get("http://localhost:80/incomeCatagory/").then(res => {
+    Axios.get(
+      "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/"
+    ).then(res => {
       this.setState({
         incomes: res.data
       });
@@ -73,31 +77,37 @@ class EditCatagories extends Component {
 
   handleDelete = (id, type) => {
     if (type === "income") {
-      Axios.delete("http://localhost:80/incomeCatagory/?id=" + id).then(
-        response => {
-          console.log(response);
-          this.props.deleteCatagory();
-          Axios.get("http://localhost:80/incomeCatagory/").then(res => {
-            this.setState({
-              incomes: res.data
-            });
-            console.log(this.state.incomes);
+      Axios.delete(
+        "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/?id=" +
+          id
+      ).then(response => {
+        console.log(response);
+        this.props.deleteCatagory();
+        Axios.get(
+          "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/"
+        ).then(res => {
+          this.setState({
+            incomes: res.data
           });
-        }
-      );
+          console.log(this.state.incomes);
+        });
+      });
     } else {
-      Axios.delete("http://localhost:80/expenseCatagory/?id=" + id).then(
-        response => {
-          console.log(response);
-          this.props.deleteCatagory();
-          Axios.get("http://localhost:80/expenseCatagory/").then(res => {
-            this.setState({
-              expenses: res.data
-            });
-            console.log(this.state.expenses);
+      Axios.delete(
+        "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/?id=" +
+          id
+      ).then(response => {
+        console.log(response);
+        this.props.deleteCatagory();
+        Axios.get(
+          "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/"
+        ).then(res => {
+          this.setState({
+            expenses: res.data
           });
-        }
-      );
+          console.log(this.state.expenses);
+        });
+      });
     }
   };
 

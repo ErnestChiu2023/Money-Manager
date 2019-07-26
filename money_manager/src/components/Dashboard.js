@@ -119,19 +119,21 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    Axios.get("http://localhost:80/dashboard/").then(res => {
-      console.log(res.data);
-      this.setState({
-        expense_sum: res.data.expense_sum,
-        incomes_sum: res.data.incomes_sum,
-        balance: res.data.balance,
-        catagory_expenses: res.data.catagory_expenses,
-        time_expenses: res.data.time_expenses
-      });
-      console.log(this.state);
-      this.updateLineChart();
-      this.updatePieChart();
-    });
+    Axios.get("https://ernest-money-manager.herokuapp.com/api/dashboard/").then(
+      res => {
+        console.log(res.data);
+        this.setState({
+          expense_sum: res.data.expense_sum,
+          incomes_sum: res.data.incomes_sum,
+          balance: res.data.balance,
+          catagory_expenses: res.data.catagory_expenses,
+          time_expenses: res.data.time_expenses
+        });
+        console.log(this.state);
+        this.updateLineChart();
+        this.updatePieChart();
+      }
+    );
   }
 
   render() {

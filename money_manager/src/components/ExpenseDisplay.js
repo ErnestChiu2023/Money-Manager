@@ -9,20 +9,24 @@ class ExpenseDisplay extends Component {
     this.state = {
       expenses: []
     };
-    axios.get("http://localhost:80/records/").then(res => {
-      this.setState({
-        expenses: res.data.expenses
+    axios
+      .get("https://ernest-money-manager.herokuapp.com/api/records/")
+      .then(res => {
+        this.setState({
+          expenses: res.data.expenses
+        });
       });
-    });
   }
 
   componentDidMount() {
-    axios.get("http://localhost:80/records/").then(res => {
-      this.setState({
-        expenses: res.data.expenses
+    axios
+      .get("https://ernest-money-manager.herokuapp.com/api/records/")
+      .then(res => {
+        this.setState({
+          expenses: res.data.expenses
+        });
+        console.log(this.state.expenses);
       });
-      console.log(this.state.expenses);
-    });
   }
 
   displayExpenses = () => {
