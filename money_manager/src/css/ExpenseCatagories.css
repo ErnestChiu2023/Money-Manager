@@ -1,0 +1,6 @@
+.ExpenseCatagories {
+  margin: 1vh 0.5vw;
+  display: flex;
+  padding: 1vh 5vw;
+  justify-content: center;
+}

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
+import "../css/incomeDisplay.css";
+import Button from "react-bootstrap/Button";
+
 const axios = require("axios");
 
 class IncomeDisplay extends Component {
@@ -31,17 +34,27 @@ class IncomeDisplay extends Component {
 
   displayIncomes = () => {
     return this.state.incomes.map(income => {
+      var labelColor = "";
+      if (income.amount > 1000) {
+        labelColor += "green";
+      } else if (income.amount > 500) {
+        labelColor += "yellow";
+      } else {
+        labelColor += "red";
+      }
       return (
-        <tbody key={income._id}>
-          <tr>
-            <td>{income.catagory}</td>
-            <td>{income.amount}</td>
-            <td>{income.date.substring(0, 10)}</td>
-            <td>
-              <Link to={`editIncome/${income._id}`}>edit</Link>
-            </td>
-          </tr>
-        </tbody>
+        <tr key={income._id}>
+          <td>{income.catagory}</td>
+          <td>
+            <span className={labelColor}>{income.amount}</span>
+          </td>
+          <td>{income.date.substring(0, 10)}</td>
+          <td>
+            <Link to={`editIncome/${income._id}`}>
+              <span className="bg-primary edit">Edit</span>
+            </Link>
+          </td>
+        </tr>
       );
     });
   };
@@ -49,17 +62,29 @@ class IncomeDisplay extends Component {
   render() {
     return (
       <div className="IncomeDisplay">
-        <Table responsive bordered hover>
-          <thead>
-            <tr>
-              <th>Catagory</th>
-              <th>Cost</th>
-              <th>Date</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <this.displayIncomes />
-        </Table>
+        <div className="ButtonContainer">
+          <Link to={"/income"}>
+            <Button type="submit">Add Income</Button>
+          </Link>
+          <Link to={"/incomeCatagories"}>
+            <Button variant="danger">Edit Catagories</Button>
+          </Link>
+        </div>
+        <div className="TableContainer">
+          <Table hover striped className="table">
+            <thead>
+              <tr>
+                <th>Catagory</th>
+                <th>Cost</th>
+                <th>Date</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <this.displayIncomes />
+            </tbody>
+          </Table>
+        </div>
       </div>
     );
   }
