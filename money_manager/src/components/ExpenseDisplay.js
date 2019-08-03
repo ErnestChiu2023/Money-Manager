@@ -66,6 +66,9 @@ class ExpenseDisplay extends Component {
           <Link to={"/expense"}>
             <Button type="submit">Add Expense</Button>
           </Link>
+          <Link to={"/expenseCatagories"}>
+            <Button variant="danger">Edit Catagories</Button>
+          </Link>
         </div>
         <div className="TableContainer">
           <Table responsive striped hover>

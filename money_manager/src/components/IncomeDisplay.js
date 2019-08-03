@@ -66,6 +66,9 @@ class IncomeDisplay extends Component {
           <Link to={"/income"}>
             <Button type="submit">Add Income</Button>
           </Link>
+          <Link to={"/incomeCatagories"}>
+            <Button variant="danger">Edit Catagories</Button>
+          </Link>
         </div>
         <div className="TableContainer">
           <Table hover striped className="table">
