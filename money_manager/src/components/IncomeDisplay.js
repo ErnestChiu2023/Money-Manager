@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import "../css/incomeDisplay.css";
+import Button from "react-bootstrap/Button";
+import Income from "./Income";
+
 const axios = require("axios");
 var classNames = require("classnames");
 
@@ -49,7 +52,9 @@ class IncomeDisplay extends Component {
           </td>
           <td>{income.date.substring(0, 10)}</td>
           <td>
-            <Link to={`editIncome/${income._id}`}>edit</Link>
+            <Link to={`editIncome/${income._id}`}>
+              <span className="bg-primary edit">Edit</span>
+            </Link>
           </td>
         </tr>
       );
@@ -59,6 +64,11 @@ class IncomeDisplay extends Component {
   render() {
     return (
       <div className="IncomeDisplay">
+        <div className="ButtonContainer">
+          <Link to={"/income"}>
+            <Button type="submit">Add Income</Button>
+          </Link>
+        </div>
         <div className="TableContainer">
           <Table hover striped className="table">
             <thead>
