@@ -175,24 +175,6 @@ class Dashboard extends Component {
             </Card.Body>
           </Card>
         </div>
-        <div className="flex-container">
-          <div className="donut">
-            <Chart
-              options={this.state.catagoryChart.options}
-              series={this.state.catagoryChart.series}
-              type="donut"
-              width="600"
-            />
-          </div>
-          <div className="time-chart">
-            <Chart
-              options={this.state.timeChart.options}
-              series={this.state.timeChart.series}
-              type="scatter"
-              width="700"
-            />
-          </div>
-        </div>
       </div>
     );
   }
