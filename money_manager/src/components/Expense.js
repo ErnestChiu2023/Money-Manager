@@ -112,10 +112,11 @@ class Expense extends Component {
             </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
-              <Form.Control as="select" onChange={this.handleCatagory}>
-                <option value="" disabled selected>
-                  Select your option
-                </option>
+              <Form.Control
+                as="select"
+                onChange={this.handleCatagory}
+                value={this.state.newCatagory}
+              >
                 <this.listCatagories />
               </Form.Control>
             </Form.Group>
