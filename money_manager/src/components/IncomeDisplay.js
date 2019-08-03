@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
+import "../css/incomeDisplay.css";
 const axios = require("axios");
+var classNames = require("classnames");
 
 class IncomeDisplay extends Component {
   constructor(props) {
@@ -31,17 +33,25 @@ class IncomeDisplay extends Component {
 
   displayIncomes = () => {
     return this.state.incomes.map(income => {
+      var labelColor = "";
+      if (income.amount > 1000) {
+        labelColor += "green";
+      } else if (income.amount > 500) {
+        labelColor += "yellow";
+      } else {
+        labelColor += "red";
+      }
       return (
-        <tbody key={income._id}>
-          <tr>
-            <td>{income.catagory}</td>
-            <td>{income.amount}</td>
-            <td>{income.date.substring(0, 10)}</td>
-            <td>
-              <Link to={`editIncome/${income._id}`}>edit</Link>
-            </td>
-          </tr>
-        </tbody>
+        <tr key={income._id}>
+          <td>{income.catagory}</td>
+          <td>
+            <span className={labelColor}>{income.amount}</span>
+          </td>
+          <td>{income.date.substring(0, 10)}</td>
+          <td>
+            <Link to={`editIncome/${income._id}`}>edit</Link>
+          </td>
+        </tr>
       );
     });
   };
@@ -49,17 +59,21 @@ class IncomeDisplay extends Component {
   render() {
     return (
       <div className="IncomeDisplay">
-        <Table responsive bordered hover>
-          <thead>
-            <tr>
-              <th>Catagory</th>
-              <th>Cost</th>
-              <th>Date</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <this.displayIncomes />
-        </Table>
+        <div className="TableContainer">
+          <Table hover striped className="table">
+            <thead>
+              <tr>
+                <th>Catagory</th>
+                <th>Cost</th>
+                <th>Date</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <this.displayIncomes />
+            </tbody>
+          </Table>
+        </div>
       </div>
     );
   }
