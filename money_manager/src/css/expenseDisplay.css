@@ -1,0 +1,28 @@
+.TableContainer {
+  display: flex;
+  padding: 1vh 5vw;
+  justify-content: center;
+}
+
+.ButtonContainer {
+  padding: 1vh 5vw;
+}
+
+.green,
+.red,
+.yellow,
+.edit {
+  padding: 6px;
+  border-radius: 10px;
+  color: white;
+}
+.yellow {
+  background-color: #ffae42;
+}
+.red {
+  background-color: #c8232c;
+}
+
+.green {
+  background-color: #4ddd6c;
+}

@@ -118,12 +118,7 @@ class App extends Component {
               <LinkContainer to="/expenseDisplay">
                 <Nav.Link bg="dark">Expenses</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/income">
-                <Nav.Link bg="dark">Add Income</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/expense">
-                <Nav.Link bg="dark">Add Expense</Nav.Link>
-              </LinkContainer>
+
               <LinkContainer to="/editCatagories">
                 <Nav.Link bg="dark">Catagories</Nav.Link>
               </LinkContainer>

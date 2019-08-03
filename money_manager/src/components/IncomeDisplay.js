@@ -3,10 +3,8 @@ import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import "../css/incomeDisplay.css";
 import Button from "react-bootstrap/Button";
-import Income from "./Income";
 
 const axios = require("axios");
-var classNames = require("classnames");
 
 class IncomeDisplay extends Component {
   constructor(props) {

@@ -116,7 +116,7 @@ class EditCatagories extends Component {
       <div className="EditCatagories">
         <Tabs defaultActiveKey="Income">
           <Tab eventKey="Income" title="Income">
-            <Table bordered hover>
+            <Table hover>
               <thead>
                 <tr>
                   <th>Catagory</th>
@@ -127,7 +127,7 @@ class EditCatagories extends Component {
             </Table>
           </Tab>
           <Tab eventKey="Expenses" title="Expenses">
-            <Table bordered hover>
+            <Table hover>
               <thead>
                 <tr>
                   <th>Catagory</th>
