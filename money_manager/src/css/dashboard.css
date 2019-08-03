@@ -1,13 +1,62 @@
 .flex-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
 }
 
-.title {
-  margin: 1vh 17vw;
+.welcome {
+  margin: 2vh 2vw;
+}
+
+.welcome h2 {
+  margin: 0px;
+  color: rgb(50, 176, 226);
+}
+
+.welcome p {
+  margin: 0px;
 }
 
 .stat {
   font-size: 40px;
+}
+
+.card {
+  height: 125px;
+  width: 350px;
+  margin: 0px 2vw;
+  display: flex;
+  align-content: left;
+  align-items: left;
+  border-radius: 10px;
+  padding: 20px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  transition: all 0.2s ease-in-out;
+  -moz-box-shadow: 1px 1px 5px 3px #ccc;
+  -webkit-box-shadow: 1px 1px 5px 3px #ccc;
+  box-shadow: 1px 1px 5px 3px #ccc;
+}
+
+.card:hover {
+  transform: scale(1.025);
+}
+
+.card h5 {
+  font-weight: 700;
+}
+
+.img {
+  position: relative;
+  width: 90px;
+  height: 80px;
+  left: 90px;
+  border-radius: 10px;
+  background: linear-gradient(to right, rgb(50, 176, 226), rgb(178, 212, 226));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  width: 50%;
+  height: 60%;
 }

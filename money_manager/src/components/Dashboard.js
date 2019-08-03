@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card";
 import "../css/dashboard.css";
-import Chart from "react-apexcharts";
-const Axios = require("axios");
+import incomePNG from "../images/income.png";
+import expensePNG from "../images/expense.png";
+import balancePNG from "../images/balance.png";
 
+const Axios = require("axios");
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -139,41 +140,32 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <h2 className="title">Monthly Status Report</h2>
+        <div className="welcome">
+          <h2>Hello Ernest!</h2>
+          <p>Here's the latest updated spending report</p>
+        </div>
         <div className="flex-container">
-          <Card
-            style={{ width: "25rem", margin: "1%" }}
-            className="text-center"
-          >
-            <Card.Body>
-              <Card.Title>Total Income</Card.Title>
-              <Card.Text className="stat">
-                {this.state.incomes_sum.toFixed(2)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card
-            style={{ width: "25rem", margin: "1%" }}
-            className="text-center"
-          >
-            <Card.Body>
-              <Card.Title>Total Expenses</Card.Title>
-              <Card.Text className="stat">
-                {this.state.expense_sum.toFixed(2)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card
-            style={{ width: "25rem", margin: "1%" }}
-            className="text-center"
-          >
-            <Card.Body>
-              <Card.Title>Total Balance</Card.Title>
-              <Card.Text className="stat">
-                {this.state.balance.toFixed(2)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          <div className="card">
+            <h5>Total Income</h5>
+            <h4>$ {this.state.incomes_sum.toFixed(2)}</h4>
+            <div className="img">
+              <img src={incomePNG} />
+            </div>
+          </div>
+          <div className="card">
+            <h5>Total Expenses</h5>
+            <h4>$ {this.state.expense_sum.toFixed(2)}</h4>
+            <div className="img">
+              <img src={expensePNG} />
+            </div>
+          </div>
+          <div className="card">
+            <h5>Total Balance</h5>
+            <h4>$ {this.state.balance.toFixed(2)}</h4>
+            <div className="img">
+              <img src={balancePNG} />
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -139,7 +139,7 @@ class App extends Component {
                 to="/expenseDisplay"
                 style={{ textDecoration: "none", color: "#5a5a5a" }}
               >
-                <i className="fa fa-shopping-cart" /> Income
+                <i className="fa fa-shopping-cart" /> Expenses
               </Link>
             </span>
           </div>
