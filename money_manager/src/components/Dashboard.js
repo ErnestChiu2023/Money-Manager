@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card";
 import "../css/dashboard.css";
-import Chart from "react-apexcharts";
-const Axios = require("axios");
+import incomePNG from "../images/income.png";
+import expensePNG from "../images/expense.png";
+import balancePNG from "../images/balance.png";
+import { Line, Pie } from "react-chartjs-2";
 
+const Axios = require("axios");
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -12,79 +14,33 @@ class Dashboard extends Component {
       incomes_sum: 0,
       balance: 0,
       catagory_expenses: [],
-      time_expenses: [],
-      catagoryChart: {
-        options: {
-          title: {
-            text: "Expenses by Catagory",
-            align: "center",
-            style: {
-              fontSize: "25px",
-              color: "#263238"
-            }
-          },
-          labels: []
-        },
-        series: []
-      },
-      timeChart: {
-        options: {
-          title: {
-            text: "Expenses by Day of Month",
-            align: "center",
-            style: {
-              fontSize: "25px",
-              color: "#263238"
-            }
-          },
-          chart: {
-            id: "timeChart"
-          }
-        },
-        plotOptions: {
-          line: {
-            curve: "smooth"
-          }
-        },
-        series: [
-          {
-            name: "Expenses",
-            data: []
-          }
-        ]
-      }
+      time_expenses: []
     };
   }
 
   updateLineChart = e => {
-    let data = [];
-    this.state.time_expenses.map(s => {
-      data.push({ x: s._id, y: s.total });
+    let unsorted = this.state.time_expenses;
+    var sorted = unsorted.sort(function(a, b) {
+      return a._id - b._id;
+    });
+    let labels_values = [];
+    let data_values = [];
+    var ctx = document.getElementById("linechart").getContext("2d");
+    var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "rgba(50, 176, 226, 0)");
+    gradient.addColorStop(1, "rgba(50, 176, 226, 1)");
+    sorted.map(s => {
+      data_values.push(s.total);
+      labels_values.push(s._id);
     });
     this.setState({
-      timeChart: {
-        options: {
-          title: {
-            text: "Expenses by Day of Month",
-            align: "center",
-            style: {
-              fontSize: "25px",
-              color: "#263238"
-            }
-          },
-          chart: {
-            id: "timeChart"
-          }
-        },
-        plotOptions: {
-          line: {
-            curve: "smooth"
-          }
-        },
-        series: [
+      timeChartData: {
+        labels: labels_values,
+        datasets: [
           {
-            data,
-            name: "Expenses"
+            label: "daily spending",
+            data: data_values,
+            backgroundColor: gradient
           }
         ]
       }
@@ -93,26 +49,35 @@ class Dashboard extends Component {
   };
 
   updatePieChart = e => {
-    let data = [];
-    let labels = [];
-    this.state.catagory_expenses.map(s => {
-      data.push(s.total);
-      labels.push(s._id);
+    let unsorted = this.state.catagory_expenses;
+    var sorted = unsorted.sort(function(a, b) {
+      return a._id - b._id;
+    });
+    let labels_values = [];
+    let data_values = [];
+
+    sorted.map(s => {
+      data_values.push(s.total);
+      labels_values.push(s._id);
     });
     this.setState({
-      catagoryChart: {
-        options: {
-          title: {
-            text: "Expenses by Catagory",
-            align: "center",
-            style: {
-              fontSize: "25px",
-              color: "#263238"
-            }
-          },
-          labels: labels
-        },
-        series: data
+      catagoryChartData: {
+        labels: labels_values,
+        datasets: [
+          {
+            label: "daily spending",
+            data: data_values,
+            backgroundColor: [
+              "#FFA8A9",
+              "#E2EB98",
+              "#7CCCEC",
+              "#F2D398",
+              "#7CE577",
+              "#44A1A0",
+              "#C1B8C8"
+            ]
+          }
+        ]
       }
     });
     console.log(this.state);
@@ -139,58 +104,79 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <h2 className="title">Monthly Status Report</h2>
-        <div className="flex-container">
-          <Card
-            style={{ width: "25rem", margin: "1%" }}
-            className="text-center"
-          >
-            <Card.Body>
-              <Card.Title>Total Income</Card.Title>
-              <Card.Text className="stat">
-                {this.state.incomes_sum.toFixed(2)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card
-            style={{ width: "25rem", margin: "1%" }}
-            className="text-center"
-          >
-            <Card.Body>
-              <Card.Title>Total Expenses</Card.Title>
-              <Card.Text className="stat">
-                {this.state.expense_sum.toFixed(2)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card
-            style={{ width: "25rem", margin: "1%" }}
-            className="text-center"
-          >
-            <Card.Body>
-              <Card.Title>Total Balance</Card.Title>
-              <Card.Text className="stat">
-                {this.state.balance.toFixed(2)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
+        <div className="welcome">
+          <h2>Hello Ernest!</h2>
+          <p>Here's the latest updated spending report</p>
         </div>
         <div className="flex-container">
-          <div className="donut">
-            <Chart
-              options={this.state.catagoryChart.options}
-              series={this.state.catagoryChart.series}
-              type="donut"
-              width="600"
+          <div className="card">
+            <h5>Total Income</h5>
+            <h4>$ {this.state.incomes_sum.toFixed(2)}</h4>
+            <div className="img">
+              <img src={incomePNG} />
+            </div>
+          </div>
+          <div className="card">
+            <h5>Total Expenses</h5>
+            <h4>$ {this.state.expense_sum.toFixed(2)}</h4>
+            <div className="img">
+              <img src={expensePNG} />
+            </div>
+          </div>
+          <div className="card">
+            <h5>Total Balance</h5>
+            <h4>$ {this.state.balance.toFixed(2)}</h4>
+            <div className="img">
+              <img src={balancePNG} />
+            </div>
+          </div>
+        </div>
+        <div className="graph">
+          <h3>Expense Statistics by Dates</h3>
+          <Line
+            id="linechart"
+            data={this.state.timeChartData}
+            width={50}
+            height={10}
+            responsive={true}
+            options={{
+              legend: {
+                display: false
+              },
+              scales: {
+                yAxes: [
+                  {
+                    gridLines: false,
+                    ticks: {
+                      padding: 10
+                    }
+                  }
+                ],
+                xAxes: [
+                  {
+                    gridLines: false,
+                    ticks: {
+                      padding: 10
+                    }
+                  }
+                ]
+              }
+            }}
+          />
+        </div>
+        <div className="bottom_row_container">
+          <div className="piegraph">
+            <h3>Expense Statistics by Catagory</h3>
+            <Pie
+              id="piechart"
+              data={this.state.catagoryChartData}
+              width={50}
+              height={25}
+              responsive={true}
             />
           </div>
-          <div className="time-chart">
-            <Chart
-              options={this.state.timeChart.options}
-              series={this.state.timeChart.series}
-              type="scatter"
-              width="700"
-            />
+          <div className="topExpenses">
+            <h3>Highest Expense Records of the month</h3>
           </div>
         </div>
       </div>

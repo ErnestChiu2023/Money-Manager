@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Income from "./components/Income";
 import Expense from "./components/Expense";
-import { LinkContainer } from "react-router-bootstrap";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import EditExpense from "./components/EditExpense";
 import EditIncome from "./components/EditIncome";
 import IncomeDisplay from "./components/IncomeDisplay";
 import ExpenseDisplay from "./components/ExpenseDisplay";
-import EditCatagories from "./components/IncomeCatagories";
 import ExpenseCatagories from "./components/ExpenseCatagories";
 import IncomeCatagories from "./components/IncomeCatagories";
+import GoogleFontLoader from "react-google-font-loader";
 
 class App extends Component {
   constructor(props) {
@@ -105,85 +102,112 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <GoogleFontLoader
+          fonts={[
+            {
+              font: "Roboto"
+            },
+            {
+              font: "Avenir"
+            }
+          ]}
+        />
         <Router>
-          <Navbar expand="lg" variant="dark" bg="dark" sticky="top">
-            <LinkContainer to="/dashboard">
-              <Navbar.Brand>Money Manager</Navbar.Brand>
-            </LinkContainer>
-            <Nav className="mr-auto">
-              <LinkContainer to="/dashboard">
-                <Nav.Link bg="dark">Dashboard</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/incomeDisplay">
-                <Nav.Link bg="dark">Income</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/expenseDisplay">
-                <Nav.Link bg="dark">Expenses</Nav.Link>
-              </LinkContainer>
-            </Nav>
-          </Navbar>
-          <ReactNotification ref={this.notificationDOMRef} />
-          <Route path="/dashboard" exact component={Dashboard} />
-          <Route path="/incomeDisplay" component={IncomeDisplay} />
-          <Route path="/expenseDisplay" component={ExpenseDisplay} />
-          <Route
-            path="/income"
-            exact
-            render={props => (
-              <Income
-                SuccessNotification={this.SuccessNotification}
-                SuccessCatagoryNotification={this.SuccessCatagoryNotification}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/expense"
-            exact
-            render={props => (
-              <Expense
-                SuccessNotification={this.SuccessNotification}
-                SuccessCatagoryNotification={this.SuccessCatagoryNotification}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/editExpense/:id"
-            render={props => (
-              <EditExpense
-                editNotification={this.editRecordNotification}
-                deleteRecordNotification={this.deleteRecordNotification}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/editIncome/:id"
-            render={props => (
-              <EditIncome
-                editNotification={this.editRecordNotification}
-                deleteRecordNotification={this.deleteRecordNotification}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/incomeCatagories"
-            render={props => (
-              <IncomeCatagories
-                deleteCatagory={this.deleteCatagoryNotification}
-              />
-            )}
-          />
-          <Route
-            path="/expenseCatagories"
-            render={props => (
-              <ExpenseCatagories
-                deleteCatagory={this.deleteCatagoryNotification}
-              />
-            )}
-          />
+          <div className="top_nav">
+            <span>Money Manager</span>
+            <span>Welcome, Ernest Chiu!</span>
+          </div>
+          <div className="side_nav">
+            <span>
+              <Link
+                to="/Dashboard"
+                style={{ textDecoration: "none", color: "#5a5a5a" }}
+              >
+                <i className="fa fa-dashboard" /> Dashboard
+              </Link>
+            </span>
+            <span>
+              <Link
+                to="/incomeDisplay"
+                style={{ textDecoration: "none", color: "#5a5a5a" }}
+              >
+                <i className="fa fa-money" /> Income
+              </Link>
+            </span>
+            <span>
+              <Link
+                to="/expenseDisplay"
+                style={{ textDecoration: "none", color: "#5a5a5a" }}
+              >
+                <i className="fa fa-shopping-cart" /> Expenses
+              </Link>
+            </span>
+          </div>
+          <div className="content">
+            <ReactNotification ref={this.notificationDOMRef} />
+            <Route path="/" exact component={Dashboard} />
+            <Route path="/dashboard" exact component={Dashboard} />
+            <Route path="/incomeDisplay" component={IncomeDisplay} />
+            <Route path="/expenseDisplay" component={ExpenseDisplay} />
+            <Route
+              path="/income"
+              exact
+              render={props => (
+                <Income
+                  SuccessNotification={this.SuccessNotification}
+                  SuccessCatagoryNotification={this.SuccessCatagoryNotification}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/expense"
+              exact
+              render={props => (
+                <Expense
+                  SuccessNotification={this.SuccessNotification}
+                  SuccessCatagoryNotification={this.SuccessCatagoryNotification}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/editExpense/:id"
+              render={props => (
+                <EditExpense
+                  editNotification={this.editRecordNotification}
+                  deleteRecordNotification={this.deleteRecordNotification}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/editIncome/:id"
+              render={props => (
+                <EditIncome
+                  editNotification={this.editRecordNotification}
+                  deleteRecordNotification={this.deleteRecordNotification}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/incomeCatagories"
+              render={props => (
+                <IncomeCatagories
+                  deleteCatagory={this.deleteCatagoryNotification}
+                />
+              )}
+            />
+            <Route
+              path="/expenseCatagories"
+              render={props => (
+                <ExpenseCatagories
+                  deleteCatagory={this.deleteCatagoryNotification}
+                />
+              )}
+            />
+          </div>
         </Router>
       </div>
     );
