@@ -4,7 +4,8 @@
 }
 
 .welcome {
-  margin: 2vh 2vw;
+  margin: 0vh 2vw;
+  padding: 2vh 0vw;
 }
 
 .welcome h2 {

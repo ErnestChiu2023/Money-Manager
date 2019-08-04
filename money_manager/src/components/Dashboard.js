@@ -137,6 +137,39 @@ class Dashboard extends Component {
             }}
           />
         </div>
+        <div className="graph">
+          <h3>Expense Statistics by Dates</h3>
+          <Line
+            id="linechart"
+            data={this.state.timeChartData}
+            width={50}
+            height={10}
+            responsive={true}
+            options={{
+              legend: {
+                display: false
+              },
+              scales: {
+                yAxes: [
+                  {
+                    gridLines: false,
+                    ticks: {
+                      padding: 10
+                    }
+                  }
+                ],
+                xAxes: [
+                  {
+                    gridLines: false,
+                    ticks: {
+                      padding: 10
+                    }
+                  }
+                ]
+              }
+            }}
+          />
+        </div>
       </div>
     );
   }

@@ -51,8 +51,9 @@
 .content {
   top: 75px;
   left: 170px;
-  position: fixed;
-  width: 100%;
+  position: relative;
+  width: 91%;
   height: 100%;
   background: rgb(239, 242, 245);
+  z-index: -1;
 }
