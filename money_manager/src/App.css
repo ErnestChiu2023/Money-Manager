@@ -18,6 +18,12 @@
   margin-right: auto;
 }
 
+.App {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: visible;
+}
 .side_nav {
   height: 100%;
   position: fixed;
@@ -49,9 +55,10 @@
 }
 
 .content {
+  overflow: scroll;
   top: 75px;
   left: 170px;
-  position: relative;
+  position: fixed;
   width: 91%;
   height: 100%;
   background: rgb(239, 242, 245);

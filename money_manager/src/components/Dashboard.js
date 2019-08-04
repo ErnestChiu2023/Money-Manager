@@ -3,7 +3,7 @@ import "../css/dashboard.css";
 import incomePNG from "../images/income.png";
 import expensePNG from "../images/expense.png";
 import balancePNG from "../images/balance.png";
-import { Line } from "react-chartjs-2";
+import { Line, Pie } from "react-chartjs-2";
 
 const Axios = require("axios");
 class Dashboard extends Component {
@@ -14,16 +14,7 @@ class Dashboard extends Component {
       incomes_sum: 0,
       balance: 0,
       catagory_expenses: [],
-      time_expenses: [],
-      timeChartData: {
-        labels: [],
-        datasets: [
-          {
-            label: "daily spending",
-            data: []
-          }
-        ]
-      }
+      time_expenses: []
     };
   }
 
@@ -57,6 +48,41 @@ class Dashboard extends Component {
     console.log(this.state);
   };
 
+  updatePieChart = e => {
+    let unsorted = this.state.catagory_expenses;
+    var sorted = unsorted.sort(function(a, b) {
+      return a._id - b._id;
+    });
+    let labels_values = [];
+    let data_values = [];
+
+    sorted.map(s => {
+      data_values.push(s.total);
+      labels_values.push(s._id);
+    });
+    this.setState({
+      catagoryChartData: {
+        labels: labels_values,
+        datasets: [
+          {
+            label: "daily spending",
+            data: data_values,
+            backgroundColor: [
+              "#FFA8A9",
+              "#E2EB98",
+              "#7CCCEC",
+              "#F2D398",
+              "#7CE577",
+              "#44A1A0",
+              "#C1B8C8"
+            ]
+          }
+        ]
+      }
+    });
+    console.log(this.state);
+  };
+
   componentDidMount() {
     Axios.get("https://ernest-money-manager.herokuapp.com/api/dashboard/").then(
       res => {
@@ -70,6 +96,7 @@ class Dashboard extends Component {
         });
         console.log(this.state);
         this.updateLineChart();
+        this.updatePieChart();
       }
     );
   }
@@ -137,38 +164,20 @@ class Dashboard extends Component {
             }}
           />
         </div>
-        <div className="graph">
-          <h3>Expense Statistics by Dates</h3>
-          <Line
-            id="linechart"
-            data={this.state.timeChartData}
-            width={50}
-            height={10}
-            responsive={true}
-            options={{
-              legend: {
-                display: false
-              },
-              scales: {
-                yAxes: [
-                  {
-                    gridLines: false,
-                    ticks: {
-                      padding: 10
-                    }
-                  }
-                ],
-                xAxes: [
-                  {
-                    gridLines: false,
-                    ticks: {
-                      padding: 10
-                    }
-                  }
-                ]
-              }
-            }}
-          />
+        <div className="bottom_row_container">
+          <div className="piegraph">
+            <h3>Expense Statistics by Catagory</h3>
+            <Pie
+              id="piechart"
+              data={this.state.catagoryChartData}
+              width={50}
+              height={25}
+              responsive={true}
+            />
+          </div>
+          <div className="topExpenses">
+            <h3>Highest Expense Records of the month</h3>
+          </div>
         </div>
       </div>
     );

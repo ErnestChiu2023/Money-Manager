@@ -62,23 +62,58 @@ img {
   height: 60%;
 }
 
-.graph {
-  position: relative;
-  width: 85%;
-  margin: 2vh 2vw;
-}
-
 .graph h3 {
   color: rgb(50, 176, 226);
   margin-bottom: 2vh;
 }
 
 .graph {
+  position: relative;
+  margin: 2vh 2vw;
   border-radius: 10px;
   -moz-box-shadow: 1px 1px 5px 3px #ccc;
   -webkit-box-shadow: 1px 1px 5px 3px #ccc;
   box-shadow: 1px 1px 5px 3px #ccc;
   background-color: white;
   padding: 20px;
-  width: 80vw;
+  width: 83.75vw;
+}
+
+.piegraph h3 {
+  color: rgb(50, 176, 226);
+}
+
+.piegraph {
+  position: relative;
+  height: 50vh;
+  margin: 2vh 2vw;
+  border-radius: 10px;
+  -moz-box-shadow: 1px 1px 5px 3px #ccc;
+  -webkit-box-shadow: 1px 1px 5px 3px #ccc;
+  box-shadow: 1px 1px 5px 3px #ccc;
+  background-color: white;
+  padding: 20px;
+  width: 40vw;
+  margin-bottom: 10vh;
+}
+
+.bottom_row_container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.topExpenses {
+  margin: 2vh 2vw;
+  padding: 20px;
+  width: 40vw;
+  height: 50vh;
+  border-radius: 10px;
+  -moz-box-shadow: 1px 1px 5px 3px #ccc;
+  -webkit-box-shadow: 1px 1px 5px 3px #ccc;
+  box-shadow: 1px 1px 5px 3px #ccc;
+  background-color: white;
+}
+
+.topExpenses h3 {
+  color: rgb(50, 176, 226);
 }
