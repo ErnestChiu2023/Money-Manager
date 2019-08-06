@@ -87,14 +87,14 @@ class Dashboard extends Component {
   listTopExpense = e => {
     return this.state.top_expenses.map(expense => {
       return (
-        <div className="listExpenses">
-          <span>
+        <tr>
+          <td>
             {expense.catagory.charAt(0).toUpperCase() +
               expense.catagory.slice(1)}
-          </span>
-          <span>${expense.amount}</span>
-          <span>{expense.date.substring(0, 10)}</span>
-        </div>
+          </td>
+          <td>${expense.amount}</td>
+          <td>{expense.date.substring(0, 10)}</td>
+        </tr>
       );
     });
   };
@@ -192,13 +192,17 @@ class Dashboard extends Component {
           </div>
           <div className="topExpenses">
             <h3>Highest Expense Records of the month</h3>
-            <div className="subheadings">
-              <span>Catagory</span>
-              <span>Amount</span>
-              <span>Date</span>
-            </div>
-            <hr />
-            <this.listTopExpense />
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Catagory</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <this.listTopExpense />
+            </table>
           </div>
         </div>
       </div>
