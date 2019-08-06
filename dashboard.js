@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var expense = require("./models/expenses");
 var income = require("./models/incomes");
-var ECatagory = require("./models/ECatagory");
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
@@ -13,21 +12,36 @@ last_month = yyyy + "-" + current_mm + "-" + "01";
 today = new Date("<" + today + ">").toISOString();
 last_month = new Date("<" + last_month + ">").toISOString();
 
+/* 
+  this function returns all the information that is required for the dashboard page 
+  - Total Income
+  - Total Expense
+  - Total Balance
+  - Expense Statistics by Dates
+  - Expense Statistics by Catagory
+  - highest expense records of the month
+*/
 router.get("/", function(req, res) {
+  // counts the number of calculations that finished
   var count = 0;
+  // returns these values
   var Values = {
     expense_sum: 0,
     incomes_sum: 0,
     balance: 0,
     catagory_expenses: [],
-    time_expenses: []
+    time_expenses: [],
+    top_expenses: []
   };
+  // calls the callback function after every promise
   function callback() {
-    if (++count == 4) {
+    if (++count == 5) {
       Values.balance = Values.incomes_sum - Values.expense_sum;
       res.json(Values);
     }
   }
+
+  // finds the total income
   income
     .find({
       date: {
@@ -36,11 +50,14 @@ router.get("/", function(req, res) {
       }
     })
     .then(function(data) {
+      console.log(data);
       for (record in data) {
         Values.incomes_sum += data[record].amount;
       }
       callback();
     });
+
+  // finds the total expense
   expense
     .find({
       date: {
@@ -55,6 +72,7 @@ router.get("/", function(req, res) {
       callback();
     });
 
+  // aggregates the total expense of the month and groups by catagory
   expense
     .aggregate([
       {
@@ -76,6 +94,8 @@ router.get("/", function(req, res) {
       Values.catagory_expenses = data;
       callback();
     });
+
+  // aggregates the total expense of the month and groups by day of month
   expense
     .aggregate([
       {
@@ -97,6 +117,17 @@ router.get("/", function(req, res) {
       console.log(data);
       Values.time_expenses = data;
       callback();
+    });
+
+  // calculates the top 5 expenses of the month
+  expense
+    .find({})
+    .sort({ amount: -1 })
+    .limit(5)
+    .then(function(data) {
+      Values.top_expenses = data;
+      callback();
+      console.log(data);
     });
 });
 

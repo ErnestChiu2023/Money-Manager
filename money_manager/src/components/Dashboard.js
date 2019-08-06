@@ -69,12 +69,12 @@ class Dashboard extends Component {
             data: data_values,
             backgroundColor: [
               "#FFA8A9",
+              "#C1B8C8",
               "#E2EB98",
-              "#7CCCEC",
-              "#F2D398",
               "#7CE577",
               "#44A1A0",
-              "#C1B8C8"
+              "#7CCCEC",
+              "#F2D398"
             ]
           }
         ]

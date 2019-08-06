@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var income = require("./models/incomes");
 
+// add a new income to the database
 router.post("/", function(req, res) {
   var transaction = new income({
     catagory: req.body.catagory,
@@ -13,12 +14,14 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
+// get all the income records in the database
 router.get("/", function(req, res) {
   income.find({ _id: req.query.id }).then(function(data) {
     res.json(data[0]);
   });
 });
 
+// edit a current income record in the database
 router.post("/edit/", function(req, res) {
   income
     .updateOne(
@@ -35,6 +38,7 @@ router.post("/edit/", function(req, res) {
   res.send("updated");
 });
 
+// delete a income record in the database by finding the corresponding id
 router.delete("/", function(req, res) {
   income.deleteOne(
     {

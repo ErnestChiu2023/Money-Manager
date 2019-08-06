@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var expense = require("./models/expenses");
 
+// post request to save a new expense
 router.post("/", function(req, res) {
   var transaction = new expense({
     catagory: req.body.catagory,
@@ -12,12 +13,14 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
+// get all the expense values
 router.get("/", function(req, res) {
   expense.find({ _id: req.query.id }).then(function(data) {
     res.json(data[0]);
   });
 });
 
+// edit the expense records by reading the request variable
 router.post("/edit/", function(req, res) {
   expense
     .updateOne(
@@ -34,6 +37,7 @@ router.post("/edit/", function(req, res) {
   res.send("updated");
 });
 
+// delete the selected expense record by query id
 router.delete("/", function(req, res) {
   expense.deleteOne(
     {
