@@ -117,3 +117,19 @@ img {
 .topExpenses h3 {
   color: rgb(50, 176, 226);
 }
+
+th {
+  padding: 1vh 4.25vw;
+}
+td {
+  padding: 2vh 4.25vw;
+}
+
+hr {
+  width: 100%;
+  margin: 0px;
+}
+
+table thead th {
+  border-bottom: 1px solid #a8a8a8;
+}

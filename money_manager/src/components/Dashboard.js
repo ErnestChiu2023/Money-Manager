@@ -14,7 +14,8 @@ class Dashboard extends Component {
       incomes_sum: 0,
       balance: 0,
       catagory_expenses: [],
-      time_expenses: []
+      time_expenses: [],
+      top_expenses: []
     };
   }
 
@@ -69,12 +70,12 @@ class Dashboard extends Component {
             data: data_values,
             backgroundColor: [
               "#FFA8A9",
+              "#C1B8C8",
               "#E2EB98",
-              "#7CCCEC",
-              "#F2D398",
               "#7CE577",
               "#44A1A0",
-              "#C1B8C8"
+              "#7CCCEC",
+              "#F2D398"
             ]
           }
         ]
@@ -83,22 +84,36 @@ class Dashboard extends Component {
     console.log(this.state);
   };
 
+  listTopExpense = e => {
+    return this.state.top_expenses.map(expense => {
+      return (
+        <tr>
+          <td>
+            {expense.catagory.charAt(0).toUpperCase() +
+              expense.catagory.slice(1)}
+          </td>
+          <td>${expense.amount}</td>
+          <td>{expense.date.substring(0, 10)}</td>
+        </tr>
+      );
+    });
+  };
+
   componentDidMount() {
-    Axios.get("https://ernest-money-manager.herokuapp.com/api/dashboard/").then(
-      res => {
-        console.log(res.data);
-        this.setState({
-          expense_sum: res.data.expense_sum,
-          incomes_sum: res.data.incomes_sum,
-          balance: res.data.balance,
-          catagory_expenses: res.data.catagory_expenses,
-          time_expenses: res.data.time_expenses
-        });
-        console.log(this.state);
-        this.updateLineChart();
-        this.updatePieChart();
-      }
-    );
+    Axios.get("http://localhost:80/api/dashboard/").then(res => {
+      console.log(res.data);
+      this.setState({
+        expense_sum: res.data.expense_sum,
+        incomes_sum: res.data.incomes_sum,
+        balance: res.data.balance,
+        catagory_expenses: res.data.catagory_expenses,
+        time_expenses: res.data.time_expenses,
+        top_expenses: res.data.top_expenses
+      });
+      console.log(this.state);
+      this.updateLineChart();
+      this.updatePieChart();
+    });
   }
 
   render() {
@@ -177,6 +192,17 @@ class Dashboard extends Component {
           </div>
           <div className="topExpenses">
             <h3>Highest Expense Records of the month</h3>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Catagory</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <this.listTopExpense />
+            </table>
           </div>
         </div>
       </div>

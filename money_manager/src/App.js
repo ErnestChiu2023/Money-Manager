@@ -108,7 +108,7 @@ class App extends Component {
               font: "Roboto"
             },
             {
-              font: "Avenir"
+              font: "Nunito Sans"
             }
           ]}
         />
