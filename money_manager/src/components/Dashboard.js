@@ -14,7 +14,8 @@ class Dashboard extends Component {
       incomes_sum: 0,
       balance: 0,
       catagory_expenses: [],
-      time_expenses: []
+      time_expenses: [],
+      top_expenses: []
     };
   }
 
@@ -83,22 +84,36 @@ class Dashboard extends Component {
     console.log(this.state);
   };
 
+  listTopExpense = e => {
+    return this.state.top_expenses.map(expense => {
+      return (
+        <div className="listExpenses">
+          <span>
+            {expense.catagory.charAt(0).toUpperCase() +
+              expense.catagory.slice(1)}
+          </span>
+          <span>${expense.amount}</span>
+          <span>{expense.date.substring(0, 10)}</span>
+        </div>
+      );
+    });
+  };
+
   componentDidMount() {
-    Axios.get("https://ernest-money-manager.herokuapp.com/api/dashboard/").then(
-      res => {
-        console.log(res.data);
-        this.setState({
-          expense_sum: res.data.expense_sum,
-          incomes_sum: res.data.incomes_sum,
-          balance: res.data.balance,
-          catagory_expenses: res.data.catagory_expenses,
-          time_expenses: res.data.time_expenses
-        });
-        console.log(this.state);
-        this.updateLineChart();
-        this.updatePieChart();
-      }
-    );
+    Axios.get("http://localhost:80/api/dashboard/").then(res => {
+      console.log(res.data);
+      this.setState({
+        expense_sum: res.data.expense_sum,
+        incomes_sum: res.data.incomes_sum,
+        balance: res.data.balance,
+        catagory_expenses: res.data.catagory_expenses,
+        time_expenses: res.data.time_expenses,
+        top_expenses: res.data.top_expenses
+      });
+      console.log(this.state);
+      this.updateLineChart();
+      this.updatePieChart();
+    });
   }
 
   render() {
@@ -177,6 +192,13 @@ class Dashboard extends Component {
           </div>
           <div className="topExpenses">
             <h3>Highest Expense Records of the month</h3>
+            <div className="subheadings">
+              <span>Catagory</span>
+              <span>Amount</span>
+              <span>Date</span>
+            </div>
+            <hr />
+            <this.listTopExpense />
           </div>
         </div>
       </div>

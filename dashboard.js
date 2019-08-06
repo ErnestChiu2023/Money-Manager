@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var expense = require("./models/expenses");
 var income = require("./models/incomes");
-
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
 var current_mm = String(today.getMonth() + 1).padStart(2, "0");
