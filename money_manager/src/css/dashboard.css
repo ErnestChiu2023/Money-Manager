@@ -112,6 +112,7 @@ img {
   -webkit-box-shadow: 1px 1px 5px 3px #ccc;
   box-shadow: 1px 1px 5px 3px #ccc;
   background-color: white;
+  display: table;
 }
 
 .topExpenses h3 {
@@ -119,10 +120,10 @@ img {
 }
 
 th {
-  padding: 1vh 4.25vw;
+  padding: 1vh 4vw;
 }
 td {
-  padding: 2vh 4.25vw;
+  padding: 2vh 4vw;
 }
 
 hr {
