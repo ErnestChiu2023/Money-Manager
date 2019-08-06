@@ -84,6 +84,9 @@ class Expense extends Component {
   };
 
   newCatagory = e => {
+    this.setState({
+      catagory: this.state.newCatagory
+    });
     Axios.post(
       "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/",
       {
@@ -112,11 +115,10 @@ class Expense extends Component {
             </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={this.handleCatagory}
-                value={this.state.newCatagory}
-              >
+              <Form.Control as="select" onChange={this.handleCatagory}>
+                <option value="" disabled selected>
+                  Select your option
+                </option>
                 <this.listCatagories />
               </Form.Control>
             </Form.Group>

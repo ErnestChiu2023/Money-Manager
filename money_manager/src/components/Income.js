@@ -38,11 +38,16 @@ class Income extends Component {
 
   listCatagories = () => {
     return this.state.catagories.map(catagory => {
-      return <option key={catagory._id}>{catagory.catagory}</option>;
+      return (
+        <option key={catagory._id} value={catagory.catagory}>
+          {catagory.catagory}
+        </option>
+      );
     });
   };
 
   handleCatagory = e => {
+    console.log(e);
     this.setState({
       catagory: e.target.value
     });
@@ -68,6 +73,7 @@ class Income extends Component {
       amount: this.state.amount,
       date: this.state.date
     }).then(response => {
+      console.log(this.state.catagory);
       console.log(response);
       if (response.status === 200) {
         this.props.SuccessNotification();
@@ -84,6 +90,9 @@ class Income extends Component {
   };
 
   newCatagory = e => {
+    this.setState({
+      catagory: this.state.newCatagory
+    });
     Axios.post(
       "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/",
       {
@@ -112,11 +121,10 @@ class Income extends Component {
             </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={this.handleCatagory}
-                value={this.state.newCatagory}
-              >
+              <Form.Control as="select" onChange={this.handleCatagory}>
+                <option value="" disabled selected>
+                  Select your option
+                </option>
                 <this.listCatagories />
               </Form.Control>
             </Form.Group>
