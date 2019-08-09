@@ -20,8 +20,7 @@ class EditExpense extends Component {
   componentDidMount() {
     console.log(this.props.match.params.id);
     Axios.get(
-      "https://ernest-money-manager.herokuapp.com/api/expense/?id=" +
-        this.props.match.params.id
+      "http://localhost:80/api/expense/?id=" + this.props.match.params.id
     ).then(res => {
       console.log(res.data);
       this.setState({
@@ -30,9 +29,7 @@ class EditExpense extends Component {
         date: res.data.date
       });
     });
-    Axios.get(
-      "https://ernest-money-manager.herokuapp.com/api/expenseCatagory/"
-    ).then(res => {
+    Axios.get("http://localhost:80/api/expenseCatagory/").then(res => {
       this.setState({
         catagories: res.data
       });
@@ -67,8 +64,7 @@ class EditExpense extends Component {
   handleLog = e => {
     e.preventDefault();
     Axios.post(
-      "https://ernest-money-manager.herokuapp.com/api/expense/edit/?id=" +
-        this.props.match.params.id,
+      "http://localhost:80/api/expense/edit/?id=" + this.props.match.params.id,
       {
         catagory: this.state.catagory,
         amount: this.state.amount,
@@ -86,8 +82,7 @@ class EditExpense extends Component {
   handleDelete = e => {
     console.log("delete fired");
     Axios.delete(
-      "https://ernest-money-manager.herokuapp.com/api/expense/?id=" +
-        this.props.match.params.id
+      "http://localhost:80/api/expense/?id=" + this.props.match.params.id
     ).then(response => {
       console.log(response);
       if (response.status === 200) {

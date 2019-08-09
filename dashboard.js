@@ -120,7 +120,12 @@ router.get("/", function(req, res) {
 
   // calculates the top 5 expenses of the month
   expense
-    .find({})
+    .find({
+      date: {
+        $gte: last_month,
+        $lte: today
+      }
+    })
     .sort({ amount: -1 })
     .limit(5)
     .then(function(data) {

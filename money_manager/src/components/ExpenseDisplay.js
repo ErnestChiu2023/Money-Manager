@@ -12,24 +12,15 @@ class ExpenseDisplay extends Component {
     this.state = {
       expenses: []
     };
-    axios
-      .get("https://ernest-money-manager.herokuapp.com/api/records/")
-      .then(res => {
-        this.setState({
-          expenses: res.data.expenses
-        });
-      });
   }
 
   componentDidMount() {
-    axios
-      .get("https://ernest-money-manager.herokuapp.com/api/records/")
-      .then(res => {
-        this.setState({
-          expenses: res.data.expenses
-        });
-        console.log(this.state.expenses);
+    axios.get("http://localhost:80/api/expense/").then(res => {
+      this.setState({
+        expenses: res.data
       });
+      console.log(this.state.expenses);
+    });
   }
 
   displayExpenses = () => {

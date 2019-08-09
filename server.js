@@ -17,8 +17,6 @@ var dashboard = require("./dashboard");
 var users = require("./user");
 var IncomeCatagory = require("./incomeCatagory");
 var expenseCatagory = require("./expenseCatagory");
-let expenseModel = require("./models/expense_model");
-let incomeModel = require("./models/income_model");
 
 // using the correct routes
 app.use("/api/expense", expense);
@@ -42,29 +40,6 @@ mongoose.connection
   .on("error", function(error) {
     console.log("Connectin error:", error);
   });
-
-// default api for all records
-// TODO: Check where this is used and remove if unecessary
-app.get("/api/records", function(req, res) {
-  let count = 0;
-  var Records = {
-    expenses: null,
-    incomes: null
-  };
-  function callback() {
-    if (++count == 2) {
-      res.json(Records);
-    }
-  }
-  expenseModel.find({}).then(function(data) {
-    Records.expenses = data;
-    callback();
-  });
-  incomeModel.find({}).then(function(data) {
-    Records.incomes = data;
-    callback();
-  });
-});
 
 // use front end in the build folder if the process and variable is in production
 if (process.env.NODE_ENV === "production") {
