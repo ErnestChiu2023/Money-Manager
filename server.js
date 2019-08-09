@@ -14,12 +14,11 @@ app.use(bodyParser.json());
 var expense = require("./expense");
 var income = require("./income");
 var dashboard = require("./dashboard");
-var users = require("./User");
-var IncomeCatagory = require("./IncomeCatagory");
+var users = require("./user");
+var IncomeCatagory = require("./incomeCatagory");
 var expenseCatagory = require("./expenseCatagory");
-let expenseModel = require("./models/expenses");
-let incomeModel = require("./models/incomes");
-let userModel = require("./models/Users");
+let expenseModel = require("./models/expense_model");
+let incomeModel = require("./models/income_model");
 
 // using the correct routes
 app.use("/api/expense", expense);

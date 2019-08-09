@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var expense = require("./models/expenses");
+var expense = require("./models/expense_model");
 
 // post request to save a new expense
 router.post("/", function(req, res) {

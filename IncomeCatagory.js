@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const ICatagory = require("./models/ICatagory");
+const ICatagory = require("./models/incomeCatagory_model");
 
 // add a new income catagory to the database
 router.post("/", function(req, res) {

@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const ECatagory = require("./models/ECatagory");
+const ECatagory = require("./models/expenseCatagory_model");
 
 // save a new catagory to the collection
 router.post("/", function(req, res) {

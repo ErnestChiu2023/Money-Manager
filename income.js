@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var income = require("./models/incomes");
+var income = require("./models/income_model");
 
 // add a new income to the database
 router.post("/", function(req, res) {
