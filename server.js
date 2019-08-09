@@ -14,10 +14,12 @@ app.use(bodyParser.json());
 var expense = require("./expense");
 var income = require("./income");
 var dashboard = require("./dashboard");
+var users = require("./User");
 var IncomeCatagory = require("./IncomeCatagory");
 var expenseCatagory = require("./expenseCatagory");
 let expenseModel = require("./models/expenses");
 let incomeModel = require("./models/incomes");
+let userModel = require("./models/Users");
 
 // using the correct routes
 app.use("/api/expense", expense);
@@ -25,6 +27,7 @@ app.use("/api/income", income);
 app.use("/api/incomeCatagory", IncomeCatagory);
 app.use("/api/expenseCatagory", expenseCatagory);
 app.use("/api/dashboard", dashboard);
+app.use("/api/users", users);
 
 // connect to the mongodb database
 mongoose.connect(
