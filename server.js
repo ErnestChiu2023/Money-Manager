@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 80;
 // use body parser to parse the json
 app.use(bodyParser.json());
 
-// requiring the correct data models and collections
+// requiring the correct routes
 var expense = require("./expense");
 var income = require("./income");
 var dashboard = require("./dashboard");
