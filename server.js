@@ -17,6 +17,7 @@ var dashboard = require("./dashboard");
 var users = require("./user");
 var IncomeCatagory = require("./incomeCatagory");
 var expenseCatagory = require("./expenseCatagory");
+var auth = require("./auth");
 
 // using the correct routes
 app.use("/api/expense", expense);
@@ -25,6 +26,7 @@ app.use("/api/incomeCatagory", IncomeCatagory);
 app.use("/api/expenseCatagory", expenseCatagory);
 app.use("/api/dashboard", dashboard);
 app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 // connect to the mongodb database
 mongoose.connect(
