@@ -4,6 +4,7 @@ let Users = require("./models/user_model");
 let bcrypt = require("bcryptjs");
 let config = require("config");
 let jwt = require("jsonwebtoken");
+let auth = require("./middleware/auth_middleware");
 
 //post request to api/users/
 router.post("/", function(req, res) {
@@ -51,6 +52,13 @@ router.post("/", function(req, res) {
       });
     });
   });
+});
+
+// get request
+router.get("/", auth, (req, res) => {
+  Users.findById(req.user.id)
+    .select("-password")
+    .then(user => res.json(user));
 });
 
 module.exports = router;
