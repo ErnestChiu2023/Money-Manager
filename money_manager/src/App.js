@@ -16,6 +16,9 @@ import GoogleFontLoader from "react-google-font-loader";
 import { loadUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
+import RegisterModal from "./auth/Register";
+import Logout from "./auth/Logout";
+import Login from "./auth/Login";
 
 class App extends Component {
   constructor(props) {
@@ -124,6 +127,15 @@ class App extends Component {
             <div className="top_nav">
               <span>Money Manager</span>
               <span>Welcome, Ernest Chiu!</span>
+              <span>
+                <RegisterModal />
+              </span>
+              <span>
+                <Logout />
+              </span>
+              <span>
+                <Login />
+              </span>
             </div>
             <div className="side_nav">
               <span>
