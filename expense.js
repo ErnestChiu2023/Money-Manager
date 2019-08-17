@@ -14,9 +14,15 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
-// get all the expense values
+// get the selected expense record
 router.get("/", auth, function(req, res) {
   expense.find({ _id: req.query.id }).then(function(data) {
+    res.json(data);
+  });
+});
+
+router.get("/all", function(req, res) {
+  expense.find({}).then(function(data) {
     res.json(data);
   });
 });

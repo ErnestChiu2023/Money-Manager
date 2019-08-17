@@ -15,7 +15,7 @@ class ExpenseDisplay extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:80/api/expense/").then(res => {
+    axios.get("http://localhost:80/api/expense/all").then(res => {
       this.setState({
         expenses: res.data
       });

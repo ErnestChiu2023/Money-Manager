@@ -14,10 +14,16 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
-// get all the income records in the database
+// get the selected income record in the database
 router.get("/", function(req, res) {
   income.find({ _id: req.query.id }).then(function(data) {
     console.log(data);
+    res.json(data);
+  });
+});
+
+router.get("/all", function(req, res) {
+  income.find({}).then(function(data) {
     res.json(data);
   });
 });

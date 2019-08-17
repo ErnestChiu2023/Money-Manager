@@ -15,7 +15,7 @@ class IncomeDisplay extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:80/api/income/").then(res => {
+    axios.get("http://localhost:80/api/income/all").then(res => {
       this.setState({
         incomes: res.data
       });
