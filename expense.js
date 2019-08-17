@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var expense = require("./models/expenses");
+var expense = require("./models/expense_model");
+var auth = require("./middleware/auth_middleware");
 
 // post request to save a new expense
 router.post("/", function(req, res) {
@@ -13,10 +14,16 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
-// get all the expense values
-router.get("/", function(req, res) {
+// get the selected expense record
+router.get("/", auth, function(req, res) {
   expense.find({ _id: req.query.id }).then(function(data) {
-    res.json(data[0]);
+    res.json(data);
+  });
+});
+
+router.get("/all", function(req, res) {
+  expense.find({}).then(function(data) {
+    res.json(data);
   });
 });
 

@@ -14,9 +14,7 @@ class IncomeCatagories extends Component {
   }
 
   componentDidMount() {
-    Axios.get(
-      "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/"
-    ).then(res => {
+    Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
       this.setState({
         incomes: res.data
       });
@@ -43,20 +41,18 @@ class IncomeCatagories extends Component {
   };
 
   handleDelete = (id, type) => {
-    Axios.delete(
-      "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/?id=" + id
-    ).then(response => {
-      console.log(response);
-      this.props.deleteCatagory();
-      Axios.get(
-        "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/"
-      ).then(res => {
-        this.setState({
-          incomes: res.data
+    Axios.delete("http://localhost:80/api/incomeCatagory/?id=" + id).then(
+      response => {
+        console.log(response);
+        this.props.deleteCatagory();
+        Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
+          this.setState({
+            incomes: res.data
+          });
+          console.log(this.state.incomes);
         });
-        console.log(this.state.incomes);
-      });
-    });
+      }
+    );
   };
 
   render() {

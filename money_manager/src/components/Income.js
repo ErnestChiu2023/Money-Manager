@@ -26,9 +26,7 @@ class Income extends Component {
   }
 
   componentDidMount() {
-    Axios.get(
-      "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/"
-    ).then(res => {
+    Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
       this.setState({
         catagories: res.data
       });
@@ -68,7 +66,7 @@ class Income extends Component {
   handleLog = e => {
     e.preventDefault();
 
-    Axios.post("https://ernest-money-manager.herokuapp.com/api/income/", {
+    Axios.post("http://localhost:80/api/income/", {
       catagory: this.state.catagory,
       amount: this.state.amount,
       date: this.state.date
@@ -93,16 +91,11 @@ class Income extends Component {
     this.setState({
       catagory: this.state.newCatagory
     });
-    Axios.post(
-      "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/",
-      {
-        catagory: this.state.newCatagory
-      }
-    ).then(response => {
+    Axios.post("http://localhost:80/api/incomeCatagory/", {
+      catagory: this.state.newCatagory
+    }).then(response => {
       this.props.SuccessCatagoryNotification();
-      Axios.get(
-        "https://ernest-money-manager.herokuapp.com/api/incomeCatagory/"
-      ).then(res => {
+      Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
         this.setState({
           catagories: res.data
         });
@@ -121,8 +114,12 @@ class Income extends Component {
             </Form.Row>
             <Form.Group controlId="catagory">
               <Form.Label>Select a catagory</Form.Label>
-              <Form.Control as="select" onChange={this.handleCatagory}>
-                <option value="" disabled selected>
+              <Form.Control
+                as="select"
+                onChange={this.handleCatagory}
+                defaultValue={""}
+              >
+                <option value="" disabled>
                   Select your option
                 </option>
                 <this.listCatagories />

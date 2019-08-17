@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var income = require("./models/incomes");
+var income = require("./models/income_model");
 
 // add a new income to the database
 router.post("/", function(req, res) {
@@ -14,10 +14,17 @@ router.post("/", function(req, res) {
   res.send("saved");
 });
 
-// get all the income records in the database
+// get the selected income record in the database
 router.get("/", function(req, res) {
   income.find({ _id: req.query.id }).then(function(data) {
-    res.json(data[0]);
+    console.log(data);
+    res.json(data);
+  });
+});
+
+router.get("/all", function(req, res) {
+  income.find({}).then(function(data) {
+    res.json(data);
   });
 });
 

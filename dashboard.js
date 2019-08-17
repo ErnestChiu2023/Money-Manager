@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var expense = require("./models/expenses");
-var income = require("./models/incomes");
+var expense = require("./models/expense_model");
+var income = require("./models/income_model");
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
 var current_mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -120,7 +120,12 @@ router.get("/", function(req, res) {
 
   // calculates the top 5 expenses of the month
   expense
-    .find({})
+    .find({
+      date: {
+        $gte: last_month,
+        $lte: today
+      }
+    })
     .sort({ amount: -1 })
     .limit(5)
     .then(function(data) {

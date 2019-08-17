@@ -12,14 +12,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "chart.js": "^2.8.0",
     "classnames": "^2.2.6",
+    "config": "^3.2.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4",
     "react-chartjs-2": "^2.7.6",
     "react-google-font-loader": "^1.0.5",
-    "react-notifications-component": "^1.1.1"
+    "react-notifications-component": "^1.1.1",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4"
   }
 }

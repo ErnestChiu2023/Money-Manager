@@ -15,7 +15,9 @@ class Dashboard extends Component {
       balance: 0,
       catagory_expenses: [],
       time_expenses: [],
-      top_expenses: []
+      top_expenses: [],
+      catagoryChartData: {},
+      timeChartData: {}
     };
   }
 
@@ -33,6 +35,7 @@ class Dashboard extends Component {
     sorted.map(s => {
       data_values.push(s.total);
       labels_values.push(s._id);
+      return null;
     });
     this.setState({
       timeChartData: {
@@ -60,6 +63,7 @@ class Dashboard extends Component {
     sorted.map(s => {
       data_values.push(s.total);
       labels_values.push(s._id);
+      return null;
     });
     this.setState({
       catagoryChartData: {
@@ -100,22 +104,24 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    Axios.get("https://ernest-money-manager.herokuapp.com/api/dashboard/").then(
-      res => {
-        console.log(res.data);
-        this.setState({
+    Axios.get("http://localhost:80/api/dashboard/").then(res => {
+      console.log(res.data);
+      this.setState(
+        {
           expense_sum: res.data.expense_sum,
           incomes_sum: res.data.incomes_sum,
           balance: res.data.balance,
           catagory_expenses: res.data.catagory_expenses,
           time_expenses: res.data.time_expenses,
           top_expenses: res.data.top_expenses
-        });
-        console.log(this.state);
-        this.updateLineChart();
-        this.updatePieChart();
-      }
-    );
+        },
+        err => {
+          this.updateLineChart();
+          this.updatePieChart();
+        }
+      );
+      console.log(this.state);
+    });
   }
 
   render() {
@@ -130,21 +136,21 @@ class Dashboard extends Component {
             <h5>Total Income</h5>
             <h4>$ {this.state.incomes_sum.toFixed(2)}</h4>
             <div className="img">
-              <img src={incomePNG} />
+              <img src={incomePNG} alt="incomepng" />
             </div>
           </div>
           <div className="card">
             <h5>Total Expenses</h5>
             <h4>$ {this.state.expense_sum.toFixed(2)}</h4>
             <div className="img">
-              <img src={expensePNG} />
+              <img src={expensePNG} alt="expensepng" />
             </div>
           </div>
           <div className="card">
             <h5>Total Balance</h5>
             <h4>$ {this.state.balance.toFixed(2)}</h4>
             <div className="img">
-              <img src={balancePNG} />
+              <img src={balancePNG} alt="balancepng" />
             </div>
           </div>
         </div>
