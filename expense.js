@@ -5,11 +5,12 @@ var auth = require("./middleware/auth_middleware");
 
 // post request to save a new expense
 router.post("/", function(req, res) {
+  console.log(req.body.date);
   var transaction = new expense({
     catagory: req.body.catagory,
     amount: req.body.amount,
     date: new Date("<" + req.body.date + ">"),
-    UserID: req.body.userID
+    UserID: req.body.UserID
   });
   transaction.save();
   res.send("saved");
