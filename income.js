@@ -18,8 +18,7 @@ router.post("/", function(req, res) {
 // get the selected income record in the database
 router.get("/", function(req, res) {
   income.find({ _id: req.query.id }).then(function(data) {
-    console.log(data);
-    res.json(data);
+    res.json(data[0]);
   });
 });
 

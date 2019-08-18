@@ -3,6 +3,9 @@ import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import "../css/incomeDisplay.css";
 import Button from "react-bootstrap/Button";
+import { userInfo } from "os";
+import { connect } from "react-redux";
+import equal from "fast-deep-equal";
 
 const axios = require("axios");
 
@@ -15,12 +18,29 @@ class IncomeDisplay extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:80/api/income/all").then(res => {
-      this.setState({
-        incomes: res.data
-      });
-      console.log(this.state.incomes);
-    });
+    if (this.props.User) {
+      axios
+        .get("http://localhost:80/api/income/all?UserID=" + this.props.User._id)
+        .then(res => {
+          this.setState({
+            incomes: res.data
+          });
+          console.log(this.state.incomes);
+        });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equal(prevProps, this.props)) {
+      axios
+        .get("http://localhost:80/api/income/all?UserID=" + this.props.User._id)
+        .then(res => {
+          this.setState({
+            incomes: res.data
+          });
+          console.log(this.state.incomes);
+        });
+    }
   }
 
   displayIncomes = () => {
@@ -81,4 +101,8 @@ class IncomeDisplay extends Component {
   }
 }
 
-export default IncomeDisplay;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(IncomeDisplay);

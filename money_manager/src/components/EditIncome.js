@@ -19,6 +19,12 @@ class EditIncome extends Component {
 
   componentDidMount() {
     console.log(this.props.match.params.id);
+    Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
+      this.setState({
+        catagories: res.data
+      });
+      console.log(this.state);
+    });
     Axios.get(
       "http://localhost:80/api/income/?id=" + this.props.match.params.id
     ).then(res => {
@@ -28,12 +34,6 @@ class EditIncome extends Component {
         amount: res.data.amount,
         date: res.data.date
       });
-    });
-    Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
-      this.setState({
-        catagories: res.data
-      });
-      console.log(this.state.catagories);
     });
   }
 

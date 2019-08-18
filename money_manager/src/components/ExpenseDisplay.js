@@ -3,7 +3,8 @@ import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import "../css/expenseDisplay.css";
 import Button from "react-bootstrap/Button";
-
+import { connect } from "react-redux";
+import equal from "fast-deep-equal";
 const axios = require("axios");
 
 class ExpenseDisplay extends Component {
@@ -15,12 +16,33 @@ class ExpenseDisplay extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:80/api/expense/all").then(res => {
-      this.setState({
-        expenses: res.data
-      });
-      console.log(this.state.expenses);
-    });
+    if (this.props.User) {
+      axios
+        .get(
+          "http://localhost:80/api/expense/all?UserID=" + this.props.User._id
+        )
+        .then(res => {
+          this.setState({
+            expenses: res.data
+          });
+          console.log(this.state.expenses);
+        });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equal(prevProps, this.props)) {
+      axios
+        .get(
+          "http://localhost:80/api/expense/all?UserID=" + this.props.User._id
+        )
+        .then(res => {
+          this.setState({
+            expenses: res.data
+          });
+          console.log(this.state.expenses);
+        });
+    }
   }
 
   displayExpenses = () => {
@@ -81,4 +103,8 @@ class ExpenseDisplay extends Component {
   }
 }
 
-export default ExpenseDisplay;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(ExpenseDisplay);
