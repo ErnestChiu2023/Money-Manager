@@ -43,6 +43,7 @@ router.get("/", function(req, res) {
   // finds the total income
   income
     .find({
+      UserID: req.query.UserID,
       date: {
         $gte: last_month,
         $lte: today
@@ -59,6 +60,7 @@ router.get("/", function(req, res) {
   // finds the total expense
   expense
     .find({
+      UserID: req.query.UserID,
       date: {
         $gte: last_month,
         $lte: today
@@ -76,6 +78,7 @@ router.get("/", function(req, res) {
     .aggregate([
       {
         $match: {
+          UserID: req.query.UserID,
           date: {
             $gte: new Date("<" + yyyy + "-" + current_mm + "-01>"),
             $lte: new Date("<" + yyyy + "-" + current_mm + "-" + dd + ">")
@@ -99,6 +102,7 @@ router.get("/", function(req, res) {
     .aggregate([
       {
         $match: {
+          UserID: req.query.UserID,
           date: {
             $gte: new Date("<" + yyyy + "-" + current_mm + "-01>"),
             $lte: new Date("<" + yyyy + "-" + current_mm + "-" + dd + ">")
@@ -121,6 +125,7 @@ router.get("/", function(req, res) {
   // calculates the top 5 expenses of the month
   expense
     .find({
+      UserID: req.query.UserID,
       date: {
         $gte: last_month,
         $lte: today
