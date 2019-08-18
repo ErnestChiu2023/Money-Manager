@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import Axios from "axios";
 import Button from "react-bootstrap/Button";
 import "../css/ExpenseCatagories.css";
+import { connect } from "react-redux";
 
 class ExpenseCatagories extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class ExpenseCatagories extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:80/api/expenseCatagory/").then(res => {
+    Axios.get(
+      "http://localhost:80/api/expenseCatagory?UserID=" + this.props.User._id
+    ).then(res => {
       this.setState({
         expenses: res.data
       });
@@ -45,7 +48,10 @@ class ExpenseCatagories extends Component {
       response => {
         console.log(response);
         this.props.deleteCatagory();
-        Axios.get("http://localhost:80/api/expenseCatagory/").then(res => {
+        Axios.get(
+          "http://localhost:80/api/expenseCatagory?UserID=" +
+            this.props.User._id
+        ).then(res => {
           this.setState({
             expenses: res.data
           });
@@ -74,4 +80,8 @@ class ExpenseCatagories extends Component {
   }
 }
 
-export default ExpenseCatagories;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(ExpenseCatagories);

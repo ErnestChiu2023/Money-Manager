@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import Axios from "axios";
 import Button from "react-bootstrap/Button";
 import "../css/IncomeCatagories.css";
+import { connect } from "react-redux";
 
 class IncomeCatagories extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class IncomeCatagories extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
+    Axios.get(
+      "http://localhost:80/api/incomeCatagory?UserID=" + this.props.User._id
+    ).then(res => {
       this.setState({
         incomes: res.data
       });
@@ -45,7 +48,9 @@ class IncomeCatagories extends Component {
       response => {
         console.log(response);
         this.props.deleteCatagory();
-        Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
+        Axios.get(
+          "http://localhost:80/api/incomeCatagory?UserID=" + this.props.User._id
+        ).then(res => {
           this.setState({
             incomes: res.data
           });
@@ -74,4 +79,8 @@ class IncomeCatagories extends Component {
   }
 }
 
-export default IncomeCatagories;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(IncomeCatagories);

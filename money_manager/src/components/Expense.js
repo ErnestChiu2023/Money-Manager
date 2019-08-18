@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import "../css/expense.css";
+import { connect } from "react-redux";
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
@@ -26,7 +27,9 @@ class Expense extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:80/api/expenseCatagory/").then(res => {
+    Axios.get(
+      "http://localhost:80/api/expenseCatagory/?UserID=" + this.props.User._id
+    ).then(res => {
       this.setState({
         catagories: res.data
       });
@@ -62,6 +65,7 @@ class Expense extends Component {
     e.preventDefault();
 
     Axios.post("http://localhost:80/api/expense/", {
+      UserID: this.props.User._id,
       catagory: this.state.catagory,
       amount: this.state.amount,
       date: this.state.date
@@ -86,10 +90,13 @@ class Expense extends Component {
       catagory: this.state.newCatagory
     });
     Axios.post("http://localhost:80/api/expenseCatagory/", {
+      UserID: this.props.User._id,
       catagory: this.state.newCatagory
     }).then(response => {
       this.props.SuccessCatagoryNotification();
-      Axios.get("http://localhost:80/api/expenseCatagory/").then(res => {
+      Axios.get(
+        "http://localhost:80/api/expenseCatagory?UserID=" + this.props.User._id
+      ).then(res => {
         this.setState({
           catagories: res.data
         });
@@ -150,4 +157,8 @@ class Expense extends Component {
   }
 }
 
-export default Expense;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(Expense);

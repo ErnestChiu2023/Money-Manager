@@ -4,6 +4,8 @@ import incomePNG from "../images/income.png";
 import expensePNG from "../images/expense.png";
 import balancePNG from "../images/balance.png";
 import { Line, Pie } from "react-chartjs-2";
+import { connect } from "react-redux";
+import equal from "fast-deep-equal";
 
 const Axios = require("axios");
 class Dashboard extends Component {
@@ -49,7 +51,6 @@ class Dashboard extends Component {
         ]
       }
     });
-    console.log(this.state);
   };
 
   updatePieChart = e => {
@@ -85,13 +86,12 @@ class Dashboard extends Component {
         ]
       }
     });
-    console.log(this.state);
   };
 
   listTopExpense = e => {
     return this.state.top_expenses.map(expense => {
       return (
-        <tr>
+        <tr key={expense._id}>
           <td>
             {expense.catagory.charAt(0).toUpperCase() +
               expense.catagory.slice(1)}
@@ -104,24 +104,49 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    Axios.get("http://localhost:80/api/dashboard/").then(res => {
-      console.log(res.data);
-      this.setState(
-        {
-          expense_sum: res.data.expense_sum,
-          incomes_sum: res.data.incomes_sum,
-          balance: res.data.balance,
-          catagory_expenses: res.data.catagory_expenses,
-          time_expenses: res.data.time_expenses,
-          top_expenses: res.data.top_expenses
-        },
-        err => {
-          this.updateLineChart();
-          this.updatePieChart();
-        }
-      );
-      console.log(this.state);
-    });
+    if (this.props.User) {
+      Axios.get(
+        "http://localhost:80/api/dashboard/?UserID=" + this.props.User._id
+      ).then(res => {
+        this.setState(
+          {
+            expense_sum: res.data.expense_sum,
+            incomes_sum: res.data.incomes_sum,
+            balance: res.data.balance,
+            catagory_expenses: res.data.catagory_expenses,
+            time_expenses: res.data.time_expenses,
+            top_expenses: res.data.top_expenses
+          },
+          err => {
+            this.updateLineChart();
+            this.updatePieChart();
+          }
+        );
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equal(prevProps, this.props)) {
+      Axios.get(
+        "http://localhost:80/api/dashboard/?UserID=" + this.props.User._id
+      ).then(res => {
+        this.setState(
+          {
+            expense_sum: res.data.expense_sum,
+            incomes_sum: res.data.incomes_sum,
+            balance: res.data.balance,
+            catagory_expenses: res.data.catagory_expenses,
+            time_expenses: res.data.time_expenses,
+            top_expenses: res.data.top_expenses
+          },
+          err => {
+            this.updateLineChart();
+            this.updatePieChart();
+          }
+        );
+      });
+    }
   }
 
   render() {
@@ -209,7 +234,9 @@ class Dashboard extends Component {
                   <th>Date</th>
                 </tr>
               </thead>
-              <this.listTopExpense />
+              <tbody>
+                <this.listTopExpense />
+              </tbody>
             </table>
           </div>
         </div>
@@ -218,4 +245,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(Dashboard);

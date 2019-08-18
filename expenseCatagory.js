@@ -5,6 +5,7 @@ const ECatagory = require("./models/expenseCatagory_model");
 // save a new catagory to the collection
 router.post("/", function(req, res) {
   var record = new ECatagory({
+    UserID: req.body.UserID,
     catagory: req.body.catagory
   });
   record.save();
@@ -13,7 +14,7 @@ router.post("/", function(req, res) {
 
 // get all of the catagories and return the json
 router.get("/", function(req, res) {
-  ECatagory.find({}).then(function(data) {
+  ECatagory.find({ UserID: req.query.UserID }).then(function(data) {
     res.json(data);
   });
 });

@@ -9,7 +9,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL
 } from "../actions/types";
-import { returnErrors, clearErrors } from "./errorActions";
+import { returnErrors } from "./errorActions";
 
 // check token and load user
 export const loadUser = () => (dispatch, getState) => {
@@ -28,6 +28,7 @@ export const loadUser = () => (dispatch, getState) => {
       })
     )
     .catch(err => {
+      console.log(err);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: AUTH_ERROR
@@ -64,6 +65,8 @@ export const register = ({ name, email, password }) => dispatch => {
       );
     });
 };
+
+//
 
 // Register the user
 export const login = ({ email, password }) => dispatch => {

@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import "../css/income.css";
+import { connect } from "react-redux";
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
@@ -26,7 +27,9 @@ class Income extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
+    Axios.get(
+      "http://localhost:80/api/incomeCatagory?UserID=" + this.props.User._id
+    ).then(res => {
       this.setState({
         catagories: res.data
       });
@@ -65,8 +68,8 @@ class Income extends Component {
 
   handleLog = e => {
     e.preventDefault();
-
     Axios.post("http://localhost:80/api/income/", {
+      UserID: this.props.User._id,
       catagory: this.state.catagory,
       amount: this.state.amount,
       date: this.state.date
@@ -92,10 +95,13 @@ class Income extends Component {
       catagory: this.state.newCatagory
     });
     Axios.post("http://localhost:80/api/incomeCatagory/", {
+      UserID: this.props.User._id,
       catagory: this.state.newCatagory
     }).then(response => {
       this.props.SuccessCatagoryNotification();
-      Axios.get("http://localhost:80/api/incomeCatagory/").then(res => {
+      Axios.get(
+        "http://localhost:80/api/incomeCatagory?UserID=" + this.props.User._id
+      ).then(res => {
         this.setState({
           catagories: res.data
         });
@@ -156,4 +162,8 @@ class Income extends Component {
   }
 }
 
-export default Income;
+const mapStateToProps = state => ({
+  User: state.auth.user
+});
+
+export default connect(mapStateToProps)(Income);
