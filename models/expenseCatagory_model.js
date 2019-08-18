@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ECatagorySchema = new Schema({
+  UserID: String,
   catagory: String
 });
 

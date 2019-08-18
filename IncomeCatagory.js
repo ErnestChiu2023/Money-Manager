@@ -5,6 +5,7 @@ const ICatagory = require("./models/incomeCatagory_model");
 // add a new income catagory to the database
 router.post("/", function(req, res) {
   var record = new ICatagory({
+    UserID: req.body.UserID,
     catagory: req.body.catagory
   });
   record.save();
@@ -12,8 +13,9 @@ router.post("/", function(req, res) {
 });
 
 // receive all the catagories from the database
+// that match the query userid
 router.get("/", function(req, res) {
-  ICatagory.find({}).then(function(data) {
+  ICatagory.find({ UserID: req.query.UserID }).then(function(data) {
     res.json(data);
   });
 });
