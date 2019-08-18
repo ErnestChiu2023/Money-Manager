@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 // Create Scehma and Model
 const expenseSchema = new Schema({
+  UserID: String,
   catagory: String,
   amount: Number,
   date: Date

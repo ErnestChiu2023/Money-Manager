@@ -8,7 +8,8 @@ router.post("/", function(req, res) {
   var transaction = new expense({
     catagory: req.body.catagory,
     amount: req.body.amount,
-    date: new Date("<" + req.body.date + ">")
+    date: new Date("<" + req.body.date + ">"),
+    UserID: req.body.userID
   });
   transaction.save();
   res.send("saved");
@@ -21,8 +22,9 @@ router.get("/", auth, function(req, res) {
   });
 });
 
+// grabs all the expenses that have the matching userID
 router.get("/all", function(req, res) {
-  expense.find({}).then(function(data) {
+  expense.find({ UserID: req.query.UserID }).then(function(data) {
     res.json(data);
   });
 });

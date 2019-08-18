@@ -5,6 +5,7 @@ var income = require("./models/income_model");
 // add a new income to the database
 router.post("/", function(req, res) {
   var transaction = new income({
+    UserID: req.body.UserID,
     catagory: req.body.catagory,
     amount: req.body.amount,
     date: new Date("<" + req.body.date + ">")
@@ -22,8 +23,9 @@ router.get("/", function(req, res) {
   });
 });
 
+// grabs all records that have the matching userid
 router.get("/all", function(req, res) {
-  income.find({}).then(function(data) {
+  income.find({ UserID: req.query.UserID }).then(function(data) {
     res.json(data);
   });
 });
